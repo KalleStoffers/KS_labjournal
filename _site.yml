@@ -1,6 +1,6 @@
-name: "Example Lab Journal"
+name: "Social Networks Lab Journal"
 author: 
-  - 'Your Name'
+  - 'Kalle Stoffers'
 output_dir: "docs"
 exclude: 
   - "data"
@@ -20,7 +20,7 @@ navbar:
 
   right:
   - icon: fab fa-github
-    href: https://github.com/JochemTolsma/labjournal
+    href: https://github.com/KalleStoffers/KS_labjournal
 output:
   html_document:
     theme: flatly
