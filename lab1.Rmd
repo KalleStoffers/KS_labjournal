@@ -39,5 +39,5 @@ It has been well-established that one's social network can provide resources whi
 (Explanatory) RQ2: How does the network composition in terms of position influence a researcher's citations?
 
 ------------------------------------------------------------------------
-References
+#References
 references.bib
