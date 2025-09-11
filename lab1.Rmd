@@ -39,5 +39,9 @@ It has been well-established that one's social network can provide resources whi
 (Explanatory) RQ2: How does the network composition in terms of position influence a researcher's citations?
 
 ------------------------------------------------------------------------
-#References
-references.bib
+# References
+  Hadani, M., Coombes, S., Das, D. and Jalajas, D. (2012), Finding a good job: Academic network centrality and early occupational outcomes in management academia. J. Organiz. Behav., 33:    723-739. https://doi.org/10.1002/job.788
+  
+  Horta, H., Feng, S. & Santos, J.M. Homophily in higher education research: a perspective based on co-authorships. Scientometrics 127, 523–543 (2022). https://doi.org/10.1007/s11192-021-04227-z
+
+
