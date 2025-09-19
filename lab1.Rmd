@@ -30,7 +30,7 @@ Last compiled on `r format(Sys.time(), '%B, %Y')`
 
 ------------------------------------------------------------------------
 
-The principle of homophily refers to the larger likelihood of observing a positive relationship between two people who are similar. In the world of academic research, this principle also applies. For example, we see that researchers with greater physical proximity or the same gender are more likely to collaborate (Horta et al., 2022). Given the different positions researcher can hold in universities, this raises the following descriptive research question: 
+The principle of homophily refers to the larger likelihood of observing a positive relationship between two people who are similar. In the world of academic research, this principle also applies. For example, we see that researchers with greater physical proximity or the same gender are more likely to collaborate (Horta et al., 2022). Given the different positions researchers can hold in universities, this raises the following descriptive research question: 
 
 (Descriptive) RQ1: To what degree does position homophily/clustering occur among social science researchers in the Netherlands?
 

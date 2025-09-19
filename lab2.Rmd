@@ -1,0 +1,136 @@
+---
+title: "Week 2"
+#bibliography: references.bib
+date: "2025-09-12"
+---
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+#klippy::klippy(color = 'darkred')
+#klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+```{r}
+library(igraph)
+```
+
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+#In class
+
+```{r}
+#install.packages("formatR")
+
+numbers<- sample(x=(0:1), size = 16, replace = T)
+net1 <- matrix(data=numbers, nrow=4, ncol=4)
+diag(net1) <- NA
+net1
+
+mean(rowSums(net1, na.rm=T))
+
+density <- (sum(rowSums(net1, na.rm=T)))/16
+
+density
+
+
+#reciprocity
+net1 <- (t(net1) + net1)
+
+num_twos <- sum(net1 == 2, na.rm = TRUE)
+
+num_ones_twos <- sum(net1 %in% c(1, 2), na.rm = TRUE)
+
+reciprocity <- num_twos / num_ones_twos
+reciprocity
+
+
+
+set.seed(123643)
+net_ex <- matrix(sample(0:1, 16, replace = T), nrow = 4, ncol=4)
+diag(net_ex) <- 0
+net_ex_un <- net_ex + t(net_ex)
+net_ex_un[net_ex_un == 2] <- 1
+diag(net_ex_un) <- 0
+net_ex_un
+
+netG <- graph_from_adjacency_matrix(net_ex_un)
+transitivity (netG)
+plot <- plot(netG)
+
+
+net_ex <- (t(net_ex) + net_ex)
+
+
+num_twos <- sum(net_ex == 2, na.rm = TRUE)
+
+num_ones_twos <- sum(net_ex %in% c(1, 2), na.rm = TRUE)
+
+reciprocity <- num_twos / num_ones_twos
+reciprocity
+
+```
+
+
+```{r}
+#?igraph
+
+netG_d <- graph_from_adjacency_matrix(net_ex)
+
+dyad_census(netG_d)
+triad_census(netG_d)
+
+plot(netG_d)
+```
+
+
+# Homework
+
+# Introduction
+The principle of homophily refers to the larger likelihood of observing a positive relationship between two people who are similar. In the world of academic research, this principle also applies. For example, we see that researchers with greater physical proximity or the same gender are more likely to collaborate (Horta et al., 2022). Given the different positions researchers can hold in universities, this raises the question to what extent this same goes for researchers of similar positions.There are several reasons why this might occur. Researcher of similar posiitons might prefer to work with other researchers with a similar level (selection), or working together with a reserahcer of a higher level might influence a researcher to promote (influence). 
+
+If this homophily structure exists, this raises the question what the consequences are of this structure of collaberations on papers. Other researchers might prefer to cite papers by researchers of a higher position. Furthermore, working with researchers of a higher position might influence these researchers in such a way that their future papers will be cited more often. 
+
+
+#RQs
+
+(Descriptive) RQ1: To what degree is there position homophily in publication collaberations between social science researchers in the Netherlands? 
+
+(Explanatory) RQ2: How does the position composition of a researcher's egonet (paper collaberations / department influence a researcher's citations?
+
+(Explanatory) RQ3: How does the position composition of a paper influence the number of citations of the paper?
+
+
+
+#Data needed
+
+- Node characteristics: position, citations, affiliation.
+
+- Relational attributes: who collaberated with whom, paper citations.
+
+# References
+  
+  Horta, H., Feng, S. & Santos, J.M. Homophily in higher education research: a perspective based on co-authorships. Scientometrics 127, 523–543 (2022). https://doi.org/10.1007/s11192-021-04227-z
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
