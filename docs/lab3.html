@@ -391,6 +391,7 @@ div.tocify {
 </div>
 
 
+<p>#In class</p>
 <pre class="r"><code>rm(list = ls())
 
 #Custom functions
@@ -427,13 +428,13 @@ fshowdf &lt;- function(x, ...) {
 packages &lt;- c(&quot;tidyverse&quot;, &quot;scholar&quot;, &quot;openalexR&quot;, &quot;rvest&quot;, &quot;jsonlite&quot;)
 fpackage.check(packages)</code></pre>
 <pre><code>## Loading required package: tidyverse</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ─────────────────────────────── tidyverse 2.0.0 ──
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ## ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
 ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ## ✔ purrr     1.1.0     
-## ── Conflicts ───────────────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ## ✖ dplyr::filter() masks stats::filter()
 ## ✖ dplyr::lag()    masks stats::lag()
 ## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
@@ -495,7 +496,7 @@ glimpse(jt_json, max.level = 1)</code></pre>
 ##   ..$ orcid                    : chr &quot;https://orcid.org/0000-0002-4411-6932&quot;
 ##   ..$ display_name             : chr &quot;Jochem Tolsma&quot;
 ##   ..$ display_name_alternatives:List of 3
-##   ..$ relevance_score          : num 8986
+##   ..$ relevance_score          : num 8945
 ##   ..$ works_count              : int 86
 ##   ..$ cited_by_count           : int 2112
 ##   ..$ summary_stats            :List of 3
@@ -512,12 +513,296 @@ glimpse(jt_json, max.level = 1)</code></pre>
 <pre class="r"><code>jt_json[[&quot;results&quot;]][[1]]$affiliations[[1]]$institution$display_name</code></pre>
 <pre><code>## [1] &quot;Radboud University Nijmegen&quot;</code></pre>
 <pre class="r"><code>#df &lt;- read_xlsx (&quot;C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/20240419Scholarid_soc_pol.xlsx&quot;)</code></pre>
-<p><img src="lab3_files/figure-html/pressure-1.png" width="672" /></p>
-<p>Note that the <code>echo = FALSE</code> parameter was added to the
-code chunk to prevent printing of the R code that generated the
-plot.</p>
+<p>#Homework</p>
+<pre class="r"><code>rm(list = ls())
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsgMyINCmF1dGhvcjogIkthbGxlIFN0b2ZmZXJzIg0KZGF0ZTogIjIwMjUtMDktMTkiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQpgYGB7cn0NCnJtKGxpc3QgPSBscygpKQ0KDQojQ3VzdG9tIGZ1bmN0aW9ucw0KZnBhY2thZ2UuY2hlY2sgPC0gZnVuY3Rpb24ocGFja2FnZXMpIHsNCiAgICBsYXBwbHkocGFja2FnZXMsIEZVTiA9IGZ1bmN0aW9uKHgpIHsNCiAgICAgICAgaWYgKCFyZXF1aXJlKHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkpIHsNCiAgICAgICAgICAgIGluc3RhbGwucGFja2FnZXMoeCwgZGVwZW5kZW5jaWVzID0gVFJVRSkNCiAgICAgICAgICAgIGxpYnJhcnkoeCwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKQ0KICAgICAgICB9DQogICAgfSkNCn0NCg0KZnNhdmUgPC0gZnVuY3Rpb24oeCwgZmlsZSA9IE5VTEwsIGxvY2F0aW9uID0gIi4vZGF0YS9wcm9jZXNzZWQvIikgew0KICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YSIpLCBkaXIuY3JlYXRlKCJkYXRhIiksIEZBTFNFKQ0KICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YS9wcm9jZXNzZWQiKSwgZGlyLmNyZWF0ZSgiZGF0YS9wcm9jZXNzZWQiKSwgRkFMU0UpDQogICAgaWYgKGlzLm51bGwoZmlsZSkpDQogICAgICAgIGZpbGUgPSBkZXBhcnNlKHN1YnN0aXR1dGUoeCkpDQogICAgZGF0ZW5hbWUgPC0gc3Vic3RyKGdzdWIoIls6LV0iLCAiIiwgU3lzLnRpbWUoKSksIDEsIDgpDQogICAgdG90YWxuYW1lIDwtIHBhc3RlKGxvY2F0aW9uLCBkYXRlbmFtZSwgZmlsZSwgIi5yZGEiLCBzZXAgPSAiIikNCiAgICBzYXZlKHgsIGZpbGUgPSB0b3RhbG5hbWUpICAjbmVlZCB0byBmaXggaWYgZmlsZSBpcyByZWxvYWRlZCBhcyBpbnB1dCBuYW1lLCBub3QgYXMgeC4gDQp9DQoNCmZsb2FkIDwtIGZ1bmN0aW9uKGZpbGVuYW1lKSB7DQogICAgbG9hZChmaWxlbmFtZSkNCiAgICBnZXQobHMoKVtscygpICE9ICJmaWxlbmFtZSJdKQ0KfQ0KDQpmc2hvd2RmIDwtIGZ1bmN0aW9uKHgsIC4uLikgew0KICAgIGtuaXRyOjprYWJsZSh4LCBkaWdpdHMgPSAyLCAiaHRtbCIsIC4uLikgJT4lDQogICAgICAgIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoYm9vdHN0cmFwX29wdGlvbnMgPSBjKCJzdHJpcGVkIiwgImhvdmVyIikpICU+JQ0KICAgICAgICBrYWJsZUV4dHJhOjpzY3JvbGxfYm94KHdpZHRoID0gIjEwMCUiLCBoZWlnaHQgPSAiMzAwcHgiKQ0KfQ0KDQpwYWNrYWdlcyA8LSBjKCJ0aWR5dmVyc2UiLCAic2Nob2xhciIsICJvcGVuYWxleFIiLCAicnZlc3QiLCAianNvbmxpdGUiKQ0KZnBhY2thZ2UuY2hlY2socGFja2FnZXMpDQoNCnVybCA8LSAiaHR0cHM6Ly9hcGkub3BlbmFsZXgub3JnL2F1dGhvcnM/c2VhcmNoPUpvY2hlbSBUb2xzbWEiDQoNCmp0X2pzb24gPC0gZnJvbUpTT04oImh0dHBzOi8vYXBpLm9wZW5hbGV4Lm9yZy9hdXRob3JzP3NlYXJjaD1Kb2NoZW0rVG9sc21hIiwgc2ltcGxpZnlWZWN0b3IgPSBGQUxTRSkNCmdsaW1wc2UoanRfanNvbiwgbWF4LmxldmVsID0gMSkNCg0Kc3RyKGp0X2pzb24kcmVzdWx0cywyKQ0KICANCiAgDQoNCmp0X2pzb25bWyJyZXN1bHRzIl1dW1sxXV0kYWZmaWxpYXRpb25zW1sxXV0kaW5zdGl0dXRpb24kZGlzcGxheV9uYW1lDQoNCiNkZiA8LSByZWFkX3hsc3ggKCJDOi9Vc2Vycy9rYWxsZS9PbmVEcml2ZS9Eb2N1bWVudGVuL1JFTUEvSmFhciAyL1NvY2lhbCBOZXR3b3Jrcy9LU19sYWJqb3VybmFsL2RhdGEvMjAyNDA0MTlTY2hvbGFyaWRfc29jX3BvbC54bHN4IikNCg0KDQpgYGANCg0KDQoNCg0KYGBge3IgcHJlc3N1cmUsIGVjaG89RkFMU0V9DQpwbG90KHByZXNzdXJlKQ0KYGBgDQoNCk5vdGUgdGhhdCB0aGUgYGVjaG8gPSBGQUxTRWAgcGFyYW1ldGVyIHdhcyBhZGRlZCB0byB0aGUgY29kZSBjaHVuayB0byBwcmV2ZW50IHByaW50aW5nIG9mIHRoZSBSIGNvZGUgdGhhdCBnZW5lcmF0ZWQgdGhlIHBsb3QuDQo=</div>
+library(tidyverse)
+#install.packages(&quot;openalexR&quot;)
+library(openalexR)
+
+df &lt;- readxl::read_excel(&quot;C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/20240419Scholarid_soc_pol.xlsx&quot;)
+
+
+mail &lt;- &quot;kalle.stoffers@ru.nl&quot;
+
+
+#empty list
+citations_all &lt;- list()
+
+remaining_authors &lt;- df$Naam[(length(citations_all) + 1):length(df$Naam)]
+
+for (author_name in remaining_authors) {
+
+#fetch information
+search &lt;- tryCatch({
+  oa_fetch(
+  entity = &quot;authors&quot;,
+  search = author_name,
+  mailto = mail)
+}, error = function(e) {
+    message(&quot;Error with author: &quot;, df$Naam[i])
+    return(NULL)
+  })
+
+if (is.null(search) || nrow(search) == 0) {
+    next
+  }
+
+#first result only
+author_data &lt;- search[1, ]
+
+#if there is no data
+counts &lt;- author_data$counts_by_year
+
+if (!is.list(counts) || length(counts) == 0 || !is.data.frame(counts[[1]])) {
+  message(&quot;Skipping author with invalid counts_by_year: &quot;, author_data$display_name)
+  next
+}
+
+#select relevant info
+df_citations &lt;- author_data$counts_by_year[[1]] |&gt;
+  select(year, cited_by_count) |&gt;
+  mutate(Naam = author_data$display_name) |&gt;
+  relocate(Naam) |&gt;
+  pivot_wider(names_from = year, values_from = cited_by_count)
+
+#add to list
+citations_all[[author_name]] &lt;- df_citations
+
+}</code></pre>
+<pre><code>## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!</code></pre>
+<pre><code>## Skipping author with invalid counts_by_year: Edgar de Bie</code></pre>
+<pre><code>## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!</code></pre>
+<pre><code>## Skipping author with invalid counts_by_year: Renate Stapelbroek</code></pre>
+<pre><code>## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!
+## Warning in oa_request(oa_query(filter = filter_i, multiple_id = multiple_id, :
+## No records found!</code></pre>
+<pre class="r"><code>#put all rows together
+df_citations_total &lt;- bind_rows(citations_all)
+str(df_citations_total)</code></pre>
+<pre><code>## tibble [486 × 15] (S3: tbl_df/tbl/data.frame)
+##  $ Naam: chr [1:486] &quot;Agnieszka Kanas&quot; &quot;Alissa Lysanne van Zijl&quot; &quot;Ana Maria Torres Chedraui&quot; &quot;Anne Slootweg&quot; ...
+##  $ 2025: int [1:486] 54 7 0 1 144 1099 13 6 80 101 ...
+##  $ 2024: int [1:486] 97 14 NA 4 150 1818 17 7 139 183 ...
+##  $ 2023: int [1:486] 114 9 0 1 193 2050 13 7 152 254 ...
+##  $ 2022: int [1:486] 80 8 NA 3 161 2355 2 5 153 259 ...
+##  $ 2021: int [1:486] 91 9 NA 2 144 2364 0 NA 158 196 ...
+##  $ 2020: int [1:486] 43 3 NA 2 173 2512 NA NA 142 236 ...
+##  $ 2019: int [1:486] 64 NA NA 1 115 2375 NA NA 137 240 ...
+##  $ 2018: int [1:486] 51 1 NA NA 126 2488 0 NA 137 490 ...
+##  $ 2017: int [1:486] 35 NA NA NA 102 2344 NA NA 122 167 ...
+##  $ 2016: int [1:486] 52 NA NA NA 119 2272 NA NA 114 134 ...
+##  $ 2015: int [1:486] 35 NA NA NA 99 2310 NA NA 121 119 ...
+##  $ 2014: int [1:486] 38 NA NA NA 118 1891 NA NA 109 126 ...
+##  $ 2013: int [1:486] 44 NA NA NA 92 1461 NA NA 110 80 ...
+##  $ 2012: int [1:486] 30 NA NA NA 74 817 NA NA 84 94 ...</code></pre>
+<pre class="r"><code>#merge with OG dataset  
+df &lt;- left_join(df, df_citations_total, by = &quot;Naam&quot;)
+
+str(df)</code></pre>
+<pre><code>## tibble [559 × 19] (S3: tbl_df/tbl/data.frame)
+##  $ Naam             : chr [1:559] &quot;Agnieszka Kanas&quot; &quot;Alissa van Zijl&quot; &quot;Ana Maria Torres Chedraui&quot; &quot;Anne Slootweg&quot; ...
+##  $ Universiteit     : chr [1:559] &quot;EUR&quot; &quot;EUR&quot; &quot;EUR&quot; &quot;EUR&quot; ...
+##  $ Email-adres      : chr [1:559] &quot;a.m.kanas@uva.nl&quot; &quot;vanzijl@essb.eur.nl&quot; &quot;torreschedraui@essb.eur.nl&quot; &quot;slootweg@essb.eur.nl&quot; ...
+##  $ Functie          : chr [1:559] &quot;Universitair hoofddocent&quot; &quot;Universitair docent&quot; &quot;Onderzoeker&quot; &quot;External PhD&quot; ...
+##  $ Google Scholar id: chr [1:559] &quot;wTAuHRkAAAAJ&quot; &quot;ovqQeCsAAAAJ&quot; &quot;F8NzQ2IAAAAJ&quot; NA ...
+##  $ 2025             : int [1:559] 54 NA 0 1 144 NA NA NA 6 80 ...
+##  $ 2024             : int [1:559] 97 NA NA 4 150 NA NA NA 7 139 ...
+##  $ 2023             : int [1:559] 114 NA 0 1 193 NA NA NA 7 152 ...
+##  $ 2022             : int [1:559] 80 NA NA 3 161 NA NA NA 5 153 ...
+##  $ 2021             : int [1:559] 91 NA NA 2 144 NA NA NA NA 158 ...
+##  $ 2020             : int [1:559] 43 NA NA 2 173 NA NA NA NA 142 ...
+##  $ 2019             : int [1:559] 64 NA NA 1 115 NA NA NA NA 137 ...
+##  $ 2018             : int [1:559] 51 NA NA NA 126 NA NA NA NA 137 ...
+##  $ 2017             : int [1:559] 35 NA NA NA 102 NA NA NA NA 122 ...
+##  $ 2016             : int [1:559] 52 NA NA NA 119 NA NA NA NA 114 ...
+##  $ 2015             : int [1:559] 35 NA NA NA 99 NA NA NA NA 121 ...
+##  $ 2014             : int [1:559] 38 NA NA NA 118 NA NA NA NA 109 ...
+##  $ 2013             : int [1:559] 44 NA NA NA 92 NA NA NA NA 110 ...
+##  $ 2012             : int [1:559] 30 NA NA NA 74 NA NA NA NA 84 ...</code></pre>
+<pre class="r"><code>view(df)
+
+#Descriptives?
+
+summary(df)</code></pre>
+<pre><code>##      Naam           Universiteit       Email-adres          Functie         
+##  Length:559         Length:559         Length:559         Length:559        
+##  Class :character   Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
+##                                                                             
+##                                                                             
+##                                                                             
+##                                                                             
+##  Google Scholar id       2025             2024              2023        
+##  Length:559         Min.   :   0.0   Min.   :    0.0   Min.   :    0.0  
+##  Class :character   1st Qu.:   8.0   1st Qu.:   13.0   1st Qu.:   13.0  
+##  Mode  :character   Median :  34.0   Median :   49.0   Median :   51.0  
+##                     Mean   : 166.6   Mean   :  270.3   Mean   :  280.9  
+##                     3rd Qu.: 114.0   3rd Qu.:  167.0   3rd Qu.:  202.0  
+##                     Max.   :7583.0   Max.   :13765.0   Max.   :11654.0  
+##                     NA&#39;s   :258      NA&#39;s   :254       NA&#39;s   :264      
+##       2022               2021             2020             2019        
+##  Min.   :    0.00   Min.   :   0.0   Min.   :   0.0   Min.   :   0.00  
+##  1st Qu.:    9.25   1st Qu.:   9.0   1st Qu.:   6.0   1st Qu.:   4.75  
+##  Median :   44.50   Median :  47.0   Median :  39.0   Median :  38.50  
+##  Mean   :  253.65   Mean   : 276.5   Mean   : 226.4   Mean   : 195.42  
+##  3rd Qu.:  178.75   3rd Qu.: 197.0   3rd Qu.: 173.0   3rd Qu.: 149.75  
+##  Max.   :10373.00   Max.   :9555.0   Max.   :6993.0   Max.   :5694.00  
+##  NA&#39;s   :265        NA&#39;s   :286      NA&#39;s   :291      NA&#39;s   :303      
+##       2018             2017             2016             2015        
+##  Min.   :   0.0   Min.   :   0.0   Min.   :   0.0   Min.   :   0.00  
+##  1st Qu.:   5.0   1st Qu.:   5.0   1st Qu.:   4.0   1st Qu.:   3.25  
+##  Median :  34.0   Median :  39.0   Median :  34.0   Median :  33.00  
+##  Mean   : 173.2   Mean   : 155.2   Mean   : 139.3   Mean   : 138.77  
+##  3rd Qu.: 137.0   3rd Qu.: 122.0   3rd Qu.: 125.0   3rd Qu.: 121.75  
+##  Max.   :4238.0   Max.   :2543.0   Max.   :2448.0   Max.   :2217.00  
+##  NA&#39;s   :320      NA&#39;s   :340      NA&#39;s   :342      NA&#39;s   :357      
+##       2014             2013             2012       
+##  Min.   :   0.0   Min.   :   0.0   Min.   :   0.0  
+##  1st Qu.:   6.0   1st Qu.:   5.0   1st Qu.:   5.0  
+##  Median :  33.5   Median :  29.0   Median :  28.0  
+##  Mean   : 139.2   Mean   : 124.3   Mean   : 118.4  
+##  3rd Qu.: 118.5   3rd Qu.: 114.2   3rd Qu.: 105.0  
+##  Max.   :2294.0   Max.   :1512.0   Max.   :1961.0  
+##  NA&#39;s   :371      NA&#39;s   :379      NA&#39;s   :396</code></pre>
+<div id="updated-rqs" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> (Updated) RQs</h1>
+<p>(Descriptive) RQ1: To what degree is there position homophily in
+publication collaberations between social science researchers in the
+Netherlands?</p>
+<p>(Explanatory) RQ2: How does the position composition of a
+researcher’s egonet (paper collaberations / department) influence a
+researcher’s citations?</p>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsgMyINCmF1dGhvcjogIkthbGxlIFN0b2ZmZXJzIg0KZGF0ZTogIjIwMjUtMDktMTkiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQojSW4gY2xhc3MNCg0KYGBge3J9DQoNCg0Kcm0obGlzdCA9IGxzKCkpDQoNCiNDdXN0b20gZnVuY3Rpb25zDQpmcGFja2FnZS5jaGVjayA8LSBmdW5jdGlvbihwYWNrYWdlcykgew0KICAgIGxhcHBseShwYWNrYWdlcywgRlVOID0gZnVuY3Rpb24oeCkgew0KICAgICAgICBpZiAoIXJlcXVpcmUoeCwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKSkgew0KICAgICAgICAgICAgaW5zdGFsbC5wYWNrYWdlcyh4LCBkZXBlbmRlbmNpZXMgPSBUUlVFKQ0KICAgICAgICAgICAgbGlicmFyeSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpDQogICAgICAgIH0NCiAgICB9KQ0KfQ0KDQpmc2F2ZSA8LSBmdW5jdGlvbih4LCBmaWxlID0gTlVMTCwgbG9jYXRpb24gPSAiLi9kYXRhL3Byb2Nlc3NlZC8iKSB7DQogICAgaWZlbHNlKCFkaXIuZXhpc3RzKCJkYXRhIiksIGRpci5jcmVhdGUoImRhdGEiKSwgRkFMU0UpDQogICAgaWZlbHNlKCFkaXIuZXhpc3RzKCJkYXRhL3Byb2Nlc3NlZCIpLCBkaXIuY3JlYXRlKCJkYXRhL3Byb2Nlc3NlZCIpLCBGQUxTRSkNCiAgICBpZiAoaXMubnVsbChmaWxlKSkNCiAgICAgICAgZmlsZSA9IGRlcGFyc2Uoc3Vic3RpdHV0ZSh4KSkNCiAgICBkYXRlbmFtZSA8LSBzdWJzdHIoZ3N1YigiWzotXSIsICIiLCBTeXMudGltZSgpKSwgMSwgOCkNCiAgICB0b3RhbG5hbWUgPC0gcGFzdGUobG9jYXRpb24sIGRhdGVuYW1lLCBmaWxlLCAiLnJkYSIsIHNlcCA9ICIiKQ0KICAgIHNhdmUoeCwgZmlsZSA9IHRvdGFsbmFtZSkgICNuZWVkIHRvIGZpeCBpZiBmaWxlIGlzIHJlbG9hZGVkIGFzIGlucHV0IG5hbWUsIG5vdCBhcyB4LiANCn0NCg0KZmxvYWQgPC0gZnVuY3Rpb24oZmlsZW5hbWUpIHsNCiAgICBsb2FkKGZpbGVuYW1lKQ0KICAgIGdldChscygpW2xzKCkgIT0gImZpbGVuYW1lIl0pDQp9DQoNCmZzaG93ZGYgPC0gZnVuY3Rpb24oeCwgLi4uKSB7DQogICAga25pdHI6OmthYmxlKHgsIGRpZ2l0cyA9IDIsICJodG1sIiwgLi4uKSAlPiUNCiAgICAgICAga2FibGVFeHRyYTo6a2FibGVfc3R5bGluZyhib290c3RyYXBfb3B0aW9ucyA9IGMoInN0cmlwZWQiLCAiaG92ZXIiKSkgJT4lDQogICAgICAgIGthYmxlRXh0cmE6OnNjcm9sbF9ib3god2lkdGggPSAiMTAwJSIsIGhlaWdodCA9ICIzMDBweCIpDQp9DQoNCnBhY2thZ2VzIDwtIGMoInRpZHl2ZXJzZSIsICJzY2hvbGFyIiwgIm9wZW5hbGV4UiIsICJydmVzdCIsICJqc29ubGl0ZSIpDQpmcGFja2FnZS5jaGVjayhwYWNrYWdlcykNCg0KdXJsIDwtICJodHRwczovL2FwaS5vcGVuYWxleC5vcmcvYXV0aG9ycz9zZWFyY2g9Sm9jaGVtIFRvbHNtYSINCg0KanRfanNvbiA8LSBmcm9tSlNPTigiaHR0cHM6Ly9hcGkub3BlbmFsZXgub3JnL2F1dGhvcnM/c2VhcmNoPUpvY2hlbStUb2xzbWEiLCBzaW1wbGlmeVZlY3RvciA9IEZBTFNFKQ0KZ2xpbXBzZShqdF9qc29uLCBtYXgubGV2ZWwgPSAxKQ0KDQpzdHIoanRfanNvbiRyZXN1bHRzLDIpDQogIA0KICANCg0KanRfanNvbltbInJlc3VsdHMiXV1bWzFdXSRhZmZpbGlhdGlvbnNbWzFdXSRpbnN0aXR1dGlvbiRkaXNwbGF5X25hbWUNCg0KI2RmIDwtIHJlYWRfeGxzeCAoIkM6L1VzZXJzL2thbGxlL09uZURyaXZlL0RvY3VtZW50ZW4vUkVNQS9KYWFyIDIvU29jaWFsIE5ldHdvcmtzL0tTX2xhYmpvdXJuYWwvZGF0YS8yMDI0MDQxOVNjaG9sYXJpZF9zb2NfcG9sLnhsc3giKQ0KDQoNCmBgYA0KDQoNCg0KI0hvbWV3b3JrDQoNCmBgYHtyfQ0Kcm0obGlzdCA9IGxzKCkpDQoNCmxpYnJhcnkodGlkeXZlcnNlKQ0KI2luc3RhbGwucGFja2FnZXMoIm9wZW5hbGV4UiIpDQpsaWJyYXJ5KG9wZW5hbGV4UikNCg0KZGYgPC0gcmVhZHhsOjpyZWFkX2V4Y2VsKCJDOi9Vc2Vycy9rYWxsZS9PbmVEcml2ZS9Eb2N1bWVudGVuL1JFTUEvSmFhciAyL1NvY2lhbCBOZXR3b3Jrcy9LU19sYWJqb3VybmFsL2RhdGEvMjAyNDA0MTlTY2hvbGFyaWRfc29jX3BvbC54bHN4IikNCg0KDQptYWlsIDwtICJrYWxsZS5zdG9mZmVyc0BydS5ubCINCg0KDQojZW1wdHkgbGlzdA0KY2l0YXRpb25zX2FsbCA8LSBsaXN0KCkNCg0KcmVtYWluaW5nX2F1dGhvcnMgPC0gZGYkTmFhbVsobGVuZ3RoKGNpdGF0aW9uc19hbGwpICsgMSk6bGVuZ3RoKGRmJE5hYW0pXQ0KDQpmb3IgKGF1dGhvcl9uYW1lIGluIHJlbWFpbmluZ19hdXRob3JzKSB7DQoNCiNmZXRjaCBpbmZvcm1hdGlvbg0Kc2VhcmNoIDwtIHRyeUNhdGNoKHsNCiAgb2FfZmV0Y2goDQogIGVudGl0eSA9ICJhdXRob3JzIiwNCiAgc2VhcmNoID0gYXV0aG9yX25hbWUsDQogIG1haWx0byA9IG1haWwpDQp9LCBlcnJvciA9IGZ1bmN0aW9uKGUpIHsNCiAgICBtZXNzYWdlKCJFcnJvciB3aXRoIGF1dGhvcjogIiwgZGYkTmFhbVtpXSkNCiAgICByZXR1cm4oTlVMTCkNCiAgfSkNCg0KaWYgKGlzLm51bGwoc2VhcmNoKSB8fCBucm93KHNlYXJjaCkgPT0gMCkgew0KICAgIG5leHQNCiAgfQ0KDQojZmlyc3QgcmVzdWx0IG9ubHkNCmF1dGhvcl9kYXRhIDwtIHNlYXJjaFsxLCBdDQoNCiNpZiB0aGVyZSBpcyBubyBkYXRhDQpjb3VudHMgPC0gYXV0aG9yX2RhdGEkY291bnRzX2J5X3llYXINCg0KaWYgKCFpcy5saXN0KGNvdW50cykgfHwgbGVuZ3RoKGNvdW50cykgPT0gMCB8fCAhaXMuZGF0YS5mcmFtZShjb3VudHNbWzFdXSkpIHsNCiAgbWVzc2FnZSgiU2tpcHBpbmcgYXV0aG9yIHdpdGggaW52YWxpZCBjb3VudHNfYnlfeWVhcjogIiwgYXV0aG9yX2RhdGEkZGlzcGxheV9uYW1lKQ0KICBuZXh0DQp9DQoNCiNzZWxlY3QgcmVsZXZhbnQgaW5mbw0KZGZfY2l0YXRpb25zIDwtIGF1dGhvcl9kYXRhJGNvdW50c19ieV95ZWFyW1sxXV0gfD4NCiAgc2VsZWN0KHllYXIsIGNpdGVkX2J5X2NvdW50KSB8Pg0KICBtdXRhdGUoTmFhbSA9IGF1dGhvcl9kYXRhJGRpc3BsYXlfbmFtZSkgfD4NCiAgcmVsb2NhdGUoTmFhbSkgfD4NCiAgcGl2b3Rfd2lkZXIobmFtZXNfZnJvbSA9IHllYXIsIHZhbHVlc19mcm9tID0gY2l0ZWRfYnlfY291bnQpDQoNCiNhZGQgdG8gbGlzdA0KY2l0YXRpb25zX2FsbFtbYXV0aG9yX25hbWVdXSA8LSBkZl9jaXRhdGlvbnMNCg0KfQ0KDQojcHV0IGFsbCByb3dzIHRvZ2V0aGVyDQpkZl9jaXRhdGlvbnNfdG90YWwgPC0gYmluZF9yb3dzKGNpdGF0aW9uc19hbGwpDQpzdHIoZGZfY2l0YXRpb25zX3RvdGFsKQ0KDQojbWVyZ2Ugd2l0aCBPRyBkYXRhc2V0ICANCmRmIDwtIGxlZnRfam9pbihkZiwgZGZfY2l0YXRpb25zX3RvdGFsLCBieSA9ICJOYWFtIikNCg0Kc3RyKGRmKQ0KdmlldyhkZikNCg0KI0Rlc2NyaXB0aXZlcz8NCg0Kc3VtbWFyeShkZikNCg0KDQpgYGANCg0KDQojIChVcGRhdGVkKSBSUXMNCihEZXNjcmlwdGl2ZSkgUlExOiBUbyB3aGF0IGRlZ3JlZSBpcyB0aGVyZSBwb3NpdGlvbiBob21vcGhpbHkgaW4gcHVibGljYXRpb24gY29sbGFiZXJhdGlvbnMgYmV0d2VlbiBzb2NpYWwgc2NpZW5jZSByZXNlYXJjaGVycyBpbiB0aGUgTmV0aGVybGFuZHM/IA0KDQooRXhwbGFuYXRvcnkpIFJRMjogSG93IGRvZXMgdGhlIHBvc2l0aW9uIGNvbXBvc2l0aW9uIG9mIGEgcmVzZWFyY2hlcidzIGVnb25ldCAocGFwZXIgY29sbGFiZXJhdGlvbnMgLyBkZXBhcnRtZW50KSBpbmZsdWVuY2UgYSByZXNlYXJjaGVyJ3MgY2l0YXRpb25zPw0KDQo=</div>
 
 
 </div>

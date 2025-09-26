@@ -9,7 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+#In class
+
 ```{r}
+
+
 rm(list = ls())
 
 #Custom functions
@@ -64,9 +68,86 @@ jt_json[["results"]][[1]]$affiliations[[1]]$institution$display_name
 
 
 
+#Homework
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+rm(list = ls())
+
+library(tidyverse)
+#install.packages("openalexR")
+library(openalexR)
+
+df <- readxl::read_excel("C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/20240419Scholarid_soc_pol.xlsx")
+
+
+mail <- "kalle.stoffers@ru.nl"
+
+
+#empty list
+citations_all <- list()
+
+remaining_authors <- df$Naam[(length(citations_all) + 1):length(df$Naam)]
+
+for (author_name in remaining_authors) {
+
+#fetch information
+search <- tryCatch({
+  oa_fetch(
+  entity = "authors",
+  search = author_name,
+  mailto = mail)
+}, error = function(e) {
+    message("Error with author: ", df$Naam[i])
+    return(NULL)
+  })
+
+if (is.null(search) || nrow(search) == 0) {
+    next
+  }
+
+#first result only
+author_data <- search[1, ]
+
+#if there is no data
+counts <- author_data$counts_by_year
+
+if (!is.list(counts) || length(counts) == 0 || !is.data.frame(counts[[1]])) {
+  message("Skipping author with invalid counts_by_year: ", author_data$display_name)
+  next
+}
+
+#select relevant info
+df_citations <- author_data$counts_by_year[[1]] |>
+  select(year, cited_by_count) |>
+  mutate(Naam = author_data$display_name) |>
+  relocate(Naam) |>
+  pivot_wider(names_from = year, values_from = cited_by_count)
+
+#add to list
+citations_all[[author_name]] <- df_citations
+
+}
+
+#put all rows together
+df_citations_total <- bind_rows(citations_all)
+str(df_citations_total)
+
+#merge with OG dataset  
+df <- left_join(df, df_citations_total, by = "Naam")
+
+str(df)
+view(df)
+
+#Descriptives?
+
+summary(df)
+
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+# (Updated) RQs
+(Descriptive) RQ1: To what degree is there position homophily in publication collaberations between social science researchers in the Netherlands? 
+
+(Explanatory) RQ2: How does the position composition of a researcher's egonet (paper collaberations / department) influence a researcher's citations?
+
