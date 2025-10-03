@@ -70,7 +70,7 @@ jt_json[["results"]][[1]]$affiliations[[1]]$institution$display_name
 
 #Homework
 
-```{r}
+```{r, eval=FALSE, echo=TRUE}
 rm(list = ls())
 
 library(tidyverse)
@@ -97,7 +97,7 @@ search <- tryCatch({
   search = author_name,
   mailto = mail)
 }, error = function(e) {
-    message("Error with author: ", df$Naam[i])
+    message("Error with author: ", author_name)
     return(NULL)
   })
 
@@ -135,6 +135,20 @@ str(df_citations_total)
 #merge with OG dataset  
 df <- left_join(df, df_citations_total, by = "Naam")
 
+```
+
+
+```{r, eval=FALSE, echo=FALSE}
+fsave(df)
+
+```
+
+```{r, eval=TRUE, echo=FALSE}
+df <- fload("./data/processed/20250926df.rda")
+```
+
+
+```{r}
 str(df)
 view(df)
 
@@ -142,8 +156,8 @@ view(df)
 
 summary(df)
 
-
 ```
+
 
 
 # (Updated) RQs

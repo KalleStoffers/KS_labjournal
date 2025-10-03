@@ -9,22 +9,329 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+```{r}
+rm(list = ls())
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+#install.packages("sna")
+library(openalexR)
+library(tidyverse)
+require(igraph)
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+g <- make_graph("Zachary")
+plot(g)
 
-```{r cars}
-summary(cars)
+gmat <- as_adjacency_matrix(g, type = "both", sparse = FALSE)
+gmat
+
+# changing V
+V(g)$size = betweenness(g, normalized = T, directed = FALSE) * 60 + 15  #after some trial and error
+plot(g, mode = "undirected")
+
+set.seed(2345)
+l <- layout_with_mds(g)  #https://igraph.org/r/doc/layout_with_mds.html
+plot(g, layout = l)
+
+l  #let us take a look at the coordinates
+l[1, 1] <- 4
+l[34, 1] <- -3.5
+plot(g, layout = l)
+
+
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
+```{r}
+## making network collaberations data, from JT's tutorial
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+scholars <- fload("C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/processed/scholars_20240924.rda")
+
+#functie maken
+fcolnet <- function(data = scholars, university = "RU", discipline = "sociology", waves = list(c(2015,
+    2018), c(2019, 2023)), type = c("first")) {
+
+    # step 1
+    demographics <- do.call(rbind.data.frame, data$demographics)
+    demographics <- demographics %>%
+        mutate(Universiteit1.22 = replace(Universiteit1.22, is.na(Universiteit1.22), ""), Universiteit2.22 = replace(Universiteit2.22,
+            is.na(Universiteit2.22), ""), Universiteit1.24 = replace(Universiteit1.24, is.na(Universiteit1.24),
+            ""), Universiteit2.24 = replace(Universiteit2.24, is.na(Universiteit2.24), ""), discipline.22 = replace(discipline.22,
+            is.na(discipline.22), ""), discipline.24 = replace(discipline.24, is.na(discipline.24), ""))
+
+    sample <- which((demographics$Universiteit1.22 %in% university | demographics$Universiteit2.22 %in%
+        university | demographics$Universiteit1.24 %in% university | demographics$Universiteit2.24 %in%
+        university) & (demographics$discipline.22 %in% discipline | demographics$discipline.24 %in% discipline))
+
+    demographics_soc <- demographics[sample, ]
+    scholars_sel <- lapply(scholars, "[", sample)
+
+    # step 2
+    ids <- demographics_soc$au_id
+    nwaves <- length(waves)
+    nets <- array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids,
+        ids))
+    dimnames(nets)
+
+    # step 3
+    df_works <- tibble(works_id = unlist(lapply(scholars_sel$work, function(l) l$id)), works_author = unlist(lapply(scholars_sel$work,
+        function(l) l$author), recursive = FALSE), works_year = unlist(lapply(scholars_sel$work, function(l) l$publication_year),
+        recursive = FALSE))
+
+    df_works <- df_works[!duplicated(df_works), ]
+
+    # step 4
+    if (type == "first") {
+        for (j in 1:nwaves) {
+            df_works_w <- df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego <- df_works_w$works_author[i][[1]]$au_id[1]
+                alters <- df_works_w$works_author[i][[1]]$au_id[-1]
+                if (sum(ids %in% ego) > 0 & sum(ids %in% alters) > 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] <- 1
+                }
+            }
+        }
+    }
+
+    if (type == "last") {
+        for (j in 1:nwaves) {
+            df_works_w <- df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego <- rev(df_works_w$works_author[i][[1]]$au_id)[1]
+                alters <- rev(df_works_w$works_author[i][[1]]$au_id)[-1]
+                if (sum(ids %in% ego) > 0 & sum(ids %in% alters) > 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] <- 1
+                }
+            }
+        }
+    }
+
+    if (type == "all") {
+        for (j in 1:nwaves) {
+            df_works_w <- df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                egos <- df_works_w$works_author[i][[1]]$au_id
+                if (sum(ids %in% egos) > 0) {
+                  nets[j, which(ids %in% egos), which(ids %in% egos)] <- 1
+                }
+            }
+        }
+    }
+    output <- list()
+    output$data <- scholars_sel
+    output$nets <- nets
+    return(output)
+}
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# Descriptive statistics for the network
+
+```{r}
+#functie gebruiken
+
+data <- fcolnet(data = scholars, 
+                university = "RU", 
+                discipline = "sociology", 
+                waves = list(c(2015, 2018), c(2019, 2023)), 
+                type = c("all"))
+
+#first wave
+net_w1 <- data$nets[1,,]
+diag(net_w1) <- 0
+g <- graph_from_adjacency_matrix(net_w1, mode = "undirected", diag = FALSE)
+
+#density
+density <- edge_density(g)
+density
+
+
+#degree centrality
+#ego level
+degree(g)
+
+#network level
+mean(degree(g, mode = "all"))
+
+
+#transitivity
+transitivity(g, type = "undirected")
+
+
+#plot
+test_w1 <- igraph::graph_from_adjacency_matrix(
+  data$nets[1,,], #for this example I take the first wave of data. (thus I select the array of networks and take the first matrix)
+  mode = c("undirected"),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL,
+  add.rownames = NULL
+)
+
+plot(test_w1,
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2)
+
+
+### second wave
+
+#duidelijk meer density, centrality en minder isolates.
+
+net_w2 <- data$nets[2,,]
+diag(net_w2) <- 0
+g2 <- graph_from_adjacency_matrix(net_w2, mode = "undirected", diag = FALSE)
+
+#density
+density2 <- edge_density(g2)
+density2
+
+
+#degree centrality
+#ego level
+degree (g2)
+
+#network level
+mean(degree(g2, mode = "all"))
+
+
+#transitivity
+transitivity(g2, type = "undirected")
+
+
+
+
+test_w2 <- igraph::graph_from_adjacency_matrix(
+  data$nets[2,,],
+  mode = c("undirected"),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL,
+  add.rownames = NULL
+)
+
+plot(test_w2,
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2)
+
+
+```
+
+#ego characterics
+
+```{r, eval=FALSE, echo=TRUE}
+# Scraping the # of citations of all papers published during per wave 
+
+
+df_scholars <- do.call(rbind, scholars$demographics)
+
+mail = "kalle.stoffers@ru.nl"
+
+
+#empty list
+citations_per_wave <- list()
+
+
+for (author in df_scholars$au_id[1:675]) {
+
+#fetch papers per authors
+papers <- oa_fetch(
+  entity = "works",
+  author.id = author,
+  mailto = mail)
+
+# check if papers is NULL or has 0 rows
+  if (is.null(papers) || nrow(papers) == 0) {
+    # fill with 0 citations for both waves
+    citations <- tibble(
+      au_id = author,
+      citations_w1 = 0,
+      citations_w2 = 0
+    )
+  } else {
+    # wave 1 citations
+    citations_w1 <- papers |>
+      filter(publication_year >= 2015 & publication_year <= 2018) |>
+      summarise(citations_w1 = sum(cited_by_count, na.rm = TRUE))
+
+    # wave 2 citations
+    citations_w2 <- papers |>
+      filter(publication_year >= 2019 & publication_year <= 2023) |>
+      summarise(citations_w2 = sum(cited_by_count, na.rm = TRUE))
+
+    # handle case where one of the summaries might return 0 rows
+    if (nrow(citations_w1) == 0) citations_w1 <- tibble(citations_w1 = 0)
+    if (nrow(citations_w2) == 0) citations_w2 <- tibble(citations_w2 = 0)
+
+#join the two
+citations <- merge(citations_w1, citations_w2)
+
+citations <- citations|>
+  mutate(au_id = author) |>
+  relocate(au_id)
+}
+  
+citations_per_wave[[author]] <- citations
+
+}
+  
+
+#merge met originele dataset
+citations_df <- bind_rows(citations_per_wave)
+
+df <- left_join(df_scholars, citations_df, by = "au_id")
+
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, file, "_", datename, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fsave(df)
+
+```
+
+```{r}
+#descriptives citations
+
+df<- fload("~/REMA/Jaar 2/Social Networks/KS_labjournal/data/processed/df_20250929.rda")
+
+
+summary(df$citations_w1)
+summary (df$citations_w2)
+
+#remove outlier
+df<- df |> filter(citations_w1 <= 6000)
+summary (df$citations_w2)
+
+df_long <- df|>
+  pivot_longer(cols = c(citations_w1, citations_w2),
+               names_to = "wave",
+               names_prefix = "citations_w",
+               values_to = "citations") |>
+  mutate(wave = as.factor(wave))
+
+ggplot(df_long, aes(x = citations, color = wave)) + geom_density()
+
+```
+
+
+# Homophily
+
+
+
+

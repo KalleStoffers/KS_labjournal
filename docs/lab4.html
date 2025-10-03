@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kalle Stoffers" />
+
+<meta name="date" content="2025-09-26" />
+
+<title>Week 4</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Week 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Week 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Week 4</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/KalleStoffers/KS_labjournal">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Week 4</h1>
+<h4 class="author">Kalle Stoffers</h4>
+<h4 class="date">2025-09-26</h4>
+
+</div>
+
+
+<pre class="r"><code>rm(list = ls())
+
+#install.packages(&quot;sna&quot;)
+library(openalexR)
+library(tidyverse)
+require(igraph)</code></pre>
+<pre><code>## Loading required package: igraph</code></pre>
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:lubridate&#39;:
+## 
+##     %--%, union</code></pre>
+<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
+## 
+##     as_data_frame, groups, union</code></pre>
+<pre><code>## The following objects are masked from &#39;package:purrr&#39;:
+## 
+##     compose, simplify</code></pre>
+<pre><code>## The following object is masked from &#39;package:tidyr&#39;:
+## 
+##     crossing</code></pre>
+<pre><code>## The following object is masked from &#39;package:tibble&#39;:
+## 
+##     as_data_frame</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     union</code></pre>
+<pre class="r"><code>g &lt;- make_graph(&quot;Zachary&quot;)
+plot(g)</code></pre>
+<p><img src="lab4_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<pre class="r"><code>gmat &lt;- as_adjacency_matrix(g, type = &quot;both&quot;, sparse = FALSE)
+gmat</code></pre>
+<pre><code>##       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13] [,14] [,15] [,16] [,17]
+##  [1,]    0    1    1    1    1    1    1    1    1     0     1     1     1     1     0     0     0
+##  [2,]    1    0    1    1    0    0    0    1    0     0     0     0     0     1     0     0     0
+##  [3,]    1    1    0    1    0    0    0    1    1     1     0     0     0     1     0     0     0
+##  [4,]    1    1    1    0    0    0    0    1    0     0     0     0     1     1     0     0     0
+##  [5,]    1    0    0    0    0    0    1    0    0     0     1     0     0     0     0     0     0
+##  [6,]    1    0    0    0    0    0    1    0    0     0     1     0     0     0     0     0     1
+##  [7,]    1    0    0    0    1    1    0    0    0     0     0     0     0     0     0     0     1
+##  [8,]    1    1    1    1    0    0    0    0    0     0     0     0     0     0     0     0     0
+##  [9,]    1    0    1    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [10,]    0    0    1    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [11,]    1    0    0    0    1    1    0    0    0     0     0     0     0     0     0     0     0
+## [12,]    1    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [13,]    1    0    0    1    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [14,]    1    1    1    1    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [15,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [16,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [17,]    0    0    0    0    0    1    1    0    0     0     0     0     0     0     0     0     0
+## [18,]    1    1    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [19,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [20,]    1    1    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [21,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [22,]    1    1    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [23,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [24,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [25,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [26,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [27,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [28,]    0    0    1    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [29,]    0    0    1    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [30,]    0    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [31,]    0    1    0    0    0    0    0    0    1     0     0     0     0     0     0     0     0
+## [32,]    1    0    0    0    0    0    0    0    0     0     0     0     0     0     0     0     0
+## [33,]    0    0    1    0    0    0    0    0    1     0     0     0     0     0     1     1     0
+## [34,]    0    0    0    0    0    0    0    0    1     1     0     0     0     1     1     1     0
+##       [,18] [,19] [,20] [,21] [,22] [,23] [,24] [,25] [,26] [,27] [,28] [,29] [,30] [,31] [,32]
+##  [1,]     1     0     1     0     1     0     0     0     0     0     0     0     0     0     1
+##  [2,]     1     0     1     0     1     0     0     0     0     0     0     0     0     1     0
+##  [3,]     0     0     0     0     0     0     0     0     0     0     1     1     0     0     0
+##  [4,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [5,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [6,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [7,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [8,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+##  [9,]     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0
+## [10,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [11,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [12,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [13,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [14,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [15,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [16,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [17,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [18,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [19,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [20,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [21,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [22,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [23,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [24,]     0     0     0     0     0     0     0     0     1     0     1     0     1     0     0
+## [25,]     0     0     0     0     0     0     0     0     1     0     1     0     0     0     1
+## [26,]     0     0     0     0     0     0     1     1     0     0     0     0     0     0     1
+## [27,]     0     0     0     0     0     0     0     0     0     0     0     0     1     0     0
+## [28,]     0     0     0     0     0     0     1     1     0     0     0     0     0     0     0
+## [29,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1
+## [30,]     0     0     0     0     0     0     1     0     0     1     0     0     0     0     0
+## [31,]     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+## [32,]     0     0     0     0     0     0     0     1     1     0     0     1     0     0     0
+## [33,]     0     1     0     1     0     1     1     0     0     0     0     0     1     1     1
+## [34,]     0     1     1     1     0     1     1     0     0     1     1     1     1     1     1
+##       [,33] [,34]
+##  [1,]     0     0
+##  [2,]     0     0
+##  [3,]     1     0
+##  [4,]     0     0
+##  [5,]     0     0
+##  [6,]     0     0
+##  [7,]     0     0
+##  [8,]     0     0
+##  [9,]     1     1
+## [10,]     0     1
+## [11,]     0     0
+## [12,]     0     0
+## [13,]     0     0
+## [14,]     0     1
+## [15,]     1     1
+## [16,]     1     1
+## [17,]     0     0
+## [18,]     0     0
+## [19,]     1     1
+## [20,]     0     1
+## [21,]     1     1
+## [22,]     0     0
+## [23,]     1     1
+## [24,]     1     1
+## [25,]     0     0
+## [26,]     0     0
+## [27,]     0     1
+## [28,]     0     1
+## [29,]     0     1
+## [30,]     1     1
+## [31,]     1     1
+## [32,]     1     1
+## [33,]     0     1
+## [34,]     1     0</code></pre>
+<pre class="r"><code># changing V
+V(g)$size = betweenness(g, normalized = T, directed = FALSE) * 60 + 15  #after some trial and error
+plot(g, mode = &quot;undirected&quot;)</code></pre>
+<p><img src="lab4_files/figure-html/unnamed-chunk-1-2.png" width="672" /></p>
+<pre class="r"><code>set.seed(2345)
+l &lt;- layout_with_mds(g)  #https://igraph.org/r/doc/layout_with_mds.html
+plot(g, layout = l)</code></pre>
+<p><img src="lab4_files/figure-html/unnamed-chunk-1-3.png" width="672" /></p>
+<pre class="r"><code>l  #let us take a look at the coordinates</code></pre>
+<pre><code>##               [,1]         [,2]
+##  [1,]  1.070931935 -0.172458113
+##  [2,]  0.732844464  0.754023309
+##  [3,]  0.100582299  0.397693607
+##  [4,]  0.708246655  0.570205545
+##  [5,]  1.816293170 -0.120778206
+##  [6,]  1.881329566 -0.135518854
+##  [7,]  1.881329566 -0.135518854
+##  [8,]  0.812606714  0.472619437
+##  [9,] -0.003769996  0.615513628
+## [10,] -0.685680315  0.621065149
+## [11,]  1.816293170 -0.120778206
+## [12,]  1.621247830 -0.065820692
+## [13,]  1.637845123  0.001789972
+## [14,]  0.067317230  0.681421148
+## [15,] -1.796316404  0.351417630
+## [16,] -1.796316404  0.351417630
+## [17,]  2.775260452 -0.124317652
+## [18,]  1.616210024  0.182510197
+## [19,] -1.796316404  0.351417630
+## [20,]  0.048362858  0.566654982
+## [21,] -1.796316404  0.351417630
+## [22,]  1.616210024  0.182510197
+## [23,] -1.796316404  0.351417630
+## [24,] -1.891240567 -0.799574907
+## [25,] -0.258345165 -2.006346563
+## [26,] -0.360530857 -2.131642875
+## [27,] -1.865177401  0.128596564
+## [28,] -0.760226022 -0.529392331
+## [29,] -0.710979936 -0.299960128
+## [30,] -1.898426916 -0.149398746
+## [31,] -0.568691923  0.804189411
+## [32,] -0.048136037 -0.870967614
+## [33,] -1.023681000 -0.035802363
+## [34,] -1.146442924 -0.037605192</code></pre>
+<pre class="r"><code>l[1, 1] &lt;- 4
+l[34, 1] &lt;- -3.5
+plot(g, layout = l)</code></pre>
+<p><img src="lab4_files/figure-html/unnamed-chunk-1-4.png" width="672" /></p>
+<pre class="r"><code>## making network collaberations data, from JT&#39;s tutorial
+
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+scholars &lt;- fload(&quot;C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/processed/scholars_20240924.rda&quot;)
+
+#functie maken
+fcolnet &lt;- function(data = scholars, university = &quot;RU&quot;, discipline = &quot;sociology&quot;, waves = list(c(2015,
+    2018), c(2019, 2023)), type = c(&quot;first&quot;)) {
+
+    # step 1
+    demographics &lt;- do.call(rbind.data.frame, data$demographics)
+    demographics &lt;- demographics %&gt;%
+        mutate(Universiteit1.22 = replace(Universiteit1.22, is.na(Universiteit1.22), &quot;&quot;), Universiteit2.22 = replace(Universiteit2.22,
+            is.na(Universiteit2.22), &quot;&quot;), Universiteit1.24 = replace(Universiteit1.24, is.na(Universiteit1.24),
+            &quot;&quot;), Universiteit2.24 = replace(Universiteit2.24, is.na(Universiteit2.24), &quot;&quot;), discipline.22 = replace(discipline.22,
+            is.na(discipline.22), &quot;&quot;), discipline.24 = replace(discipline.24, is.na(discipline.24), &quot;&quot;))
+
+    sample &lt;- which((demographics$Universiteit1.22 %in% university | demographics$Universiteit2.22 %in%
+        university | demographics$Universiteit1.24 %in% university | demographics$Universiteit2.24 %in%
+        university) &amp; (demographics$discipline.22 %in% discipline | demographics$discipline.24 %in% discipline))
+
+    demographics_soc &lt;- demographics[sample, ]
+    scholars_sel &lt;- lapply(scholars, &quot;[&quot;, sample)
+
+    # step 2
+    ids &lt;- demographics_soc$au_id
+    nwaves &lt;- length(waves)
+    nets &lt;- array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids,
+        ids))
+    dimnames(nets)
+
+    # step 3
+    df_works &lt;- tibble(works_id = unlist(lapply(scholars_sel$work, function(l) l$id)), works_author = unlist(lapply(scholars_sel$work,
+        function(l) l$author), recursive = FALSE), works_year = unlist(lapply(scholars_sel$work, function(l) l$publication_year),
+        recursive = FALSE))
+
+    df_works &lt;- df_works[!duplicated(df_works), ]
+
+    # step 4
+    if (type == &quot;first&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- df_works_w$works_author[i][[1]]$au_id[1]
+                alters &lt;- df_works_w$works_author[i][[1]]$au_id[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;last&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[1]
+                alters &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;all&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                egos &lt;- df_works_w$works_author[i][[1]]$au_id
+                if (sum(ids %in% egos) &gt; 0) {
+                  nets[j, which(ids %in% egos), which(ids %in% egos)] &lt;- 1
+                }
+            }
+        }
+    }
+    output &lt;- list()
+    output$data &lt;- scholars_sel
+    output$nets &lt;- nets
+    return(output)
+}</code></pre>
+<div id="descriptive-statistics-for-the-network" class="section level1"
+number="1">
+<h1><span class="header-section-number">1</span> Descriptive statistics
+for the network</h1>
+<pre class="r"><code>#functie gebruiken
+
+data &lt;- fcolnet(data = scholars, 
+                university = &quot;RU&quot;, 
+                discipline = &quot;sociology&quot;, 
+                waves = list(c(2015, 2018), c(2019, 2023)), 
+                type = c(&quot;all&quot;))
+
+#first wave
+net_w1 &lt;- data$nets[1,,]
+diag(net_w1) &lt;- 0
+g &lt;- graph_from_adjacency_matrix(net_w1, mode = &quot;undirected&quot;, diag = FALSE)
+
+#density
+density &lt;- edge_density(g)
+density</code></pre>
+<pre><code>## [1] 0.04326531</code></pre>
+<pre class="r"><code>#degree centrality
+#ego level
+degree(g)</code></pre>
+<pre><code>## https://openalex.org/A5011326378 https://openalex.org/A5014129369 https://openalex.org/A5023395007 
+##                                0                                3                                0 
+## https://openalex.org/A5068642001 https://openalex.org/A5074062335 https://openalex.org/A5018242597 
+##                                1                                0                                0 
+## https://openalex.org/A5030977100 https://openalex.org/A5007673492 https://openalex.org/A5016107698 
+##                                3                                7                                1 
+## https://openalex.org/A5062608377 https://openalex.org/A5002388922 https://openalex.org/A5023494442 
+##                                2                                2                                1 
+## https://openalex.org/A5046746723 https://openalex.org/A5017382943 https://openalex.org/A5035350135 
+##                                0                                0                               16 
+## https://openalex.org/A5079372810 https://openalex.org/A5048988743 https://openalex.org/A5027461314 
+##                                3                                5                               13 
+## https://openalex.org/A5035502020 https://openalex.org/A5087380803 https://openalex.org/A5066699568 
+##                                6                                4                                4 
+## https://openalex.org/A5060015711 https://openalex.org/A5017017044 https://openalex.org/A5050987926 
+##                                4                                8                                2 
+## https://openalex.org/A5019030264 https://openalex.org/A5009655338 https://openalex.org/A5026217132 
+##                                0                                0                                0 
+## https://openalex.org/A5001803910 https://openalex.org/A5030092568 https://openalex.org/A5050683616 
+##                                0                                0                                1 
+## https://openalex.org/A5031371982 https://openalex.org/A5023362052 https://openalex.org/A5071959536 
+##                                0                                0                                1 
+## https://openalex.org/A5093927073 https://openalex.org/A5055096981 https://openalex.org/A5031002485 
+##                                0                                0                                0 
+## https://openalex.org/A5020765315 https://openalex.org/A5065130106 https://openalex.org/A5080235042 
+##                                1                                0                                0 
+## https://openalex.org/A5038009917 https://openalex.org/A5047687982 https://openalex.org/A5057934803 
+##                                1                                2                                2 
+## https://openalex.org/A5063338887 https://openalex.org/A5045572082 https://openalex.org/A5085493990 
+##                                2                                2                                0 
+## https://openalex.org/A5003892082 https://openalex.org/A5047911137 https://openalex.org/A5017637321 
+##                                7                                0                                2 
+## https://openalex.org/A5068000059 https://openalex.org/A5013258554 
+##                                0                                0</code></pre>
+<pre class="r"><code>#network level
+mean(degree(g, mode = &quot;all&quot;))</code></pre>
+<pre><code>## [1] 2.12</code></pre>
+<pre class="r"><code>#transitivity
+transitivity(g, type = &quot;undirected&quot;)</code></pre>
+<pre><code>## [1] 0.2743902</code></pre>
+<pre class="r"><code>#plot
+test_w1 &lt;- igraph::graph_from_adjacency_matrix(
+  data$nets[1,,], #for this example I take the first wave of data. (thus I select the array of networks and take the first matrix)
+  mode = c(&quot;undirected&quot;),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL,
+  add.rownames = NULL
+)</code></pre>
+<pre><code>## Warning: Same attribute for columns and rows, row names are ignored</code></pre>
+<pre class="r"><code>plot(test_w1,
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2)</code></pre>
+<p><img src="lab4_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>### second wave
+
+#duidelijk meer density, centrality en minder isolates.
+
+net_w2 &lt;- data$nets[2,,]
+diag(net_w2) &lt;- 0
+g2 &lt;- graph_from_adjacency_matrix(net_w2, mode = &quot;undirected&quot;, diag = FALSE)
+
+#density
+density2 &lt;- edge_density(g2)
+density2</code></pre>
+<pre><code>## [1] 0.07428571</code></pre>
+<pre class="r"><code>#degree centrality
+#ego level
+degree (g2)</code></pre>
+<pre><code>## https://openalex.org/A5011326378 https://openalex.org/A5014129369 https://openalex.org/A5023395007 
+##                                0                                2                                1 
+## https://openalex.org/A5068642001 https://openalex.org/A5074062335 https://openalex.org/A5018242597 
+##                                1                                1                                8 
+## https://openalex.org/A5030977100 https://openalex.org/A5007673492 https://openalex.org/A5016107698 
+##                                3                                9                                5 
+## https://openalex.org/A5062608377 https://openalex.org/A5002388922 https://openalex.org/A5023494442 
+##                                5                                2                                3 
+## https://openalex.org/A5046746723 https://openalex.org/A5017382943 https://openalex.org/A5035350135 
+##                                3                                0                               15 
+## https://openalex.org/A5079372810 https://openalex.org/A5048988743 https://openalex.org/A5027461314 
+##                                4                                7                               14 
+## https://openalex.org/A5035502020 https://openalex.org/A5087380803 https://openalex.org/A5066699568 
+##                               13                                8                                6 
+## https://openalex.org/A5060015711 https://openalex.org/A5017017044 https://openalex.org/A5050987926 
+##                                7                                3                                2 
+## https://openalex.org/A5019030264 https://openalex.org/A5009655338 https://openalex.org/A5026217132 
+##                                0                                2                                2 
+## https://openalex.org/A5001803910 https://openalex.org/A5030092568 https://openalex.org/A5050683616 
+##                                3                                2                                1 
+## https://openalex.org/A5031371982 https://openalex.org/A5023362052 https://openalex.org/A5071959536 
+##                                2                                2                                2 
+## https://openalex.org/A5093927073 https://openalex.org/A5055096981 https://openalex.org/A5031002485 
+##                                0                                4                                3 
+## https://openalex.org/A5020765315 https://openalex.org/A5065130106 https://openalex.org/A5080235042 
+##                                4                                3                                3 
+## https://openalex.org/A5038009917 https://openalex.org/A5047687982 https://openalex.org/A5057934803 
+##                                1                                1                                1 
+## https://openalex.org/A5063338887 https://openalex.org/A5045572082 https://openalex.org/A5085493990 
+##                                2                                4                                3 
+## https://openalex.org/A5003892082 https://openalex.org/A5047911137 https://openalex.org/A5017637321 
+##                               14                                0                                0 
+## https://openalex.org/A5068000059 https://openalex.org/A5013258554 
+##                                1                                0</code></pre>
+<pre class="r"><code>#network level
+mean(degree(g2, mode = &quot;all&quot;))</code></pre>
+<pre><code>## [1] 3.64</code></pre>
+<pre class="r"><code>#transitivity
+transitivity(g2, type = &quot;undirected&quot;)</code></pre>
+<pre><code>## [1] 0.3226891</code></pre>
+<pre class="r"><code>test_w2 &lt;- igraph::graph_from_adjacency_matrix(
+  data$nets[2,,],
+  mode = c(&quot;undirected&quot;),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL,
+  add.rownames = NULL
+)</code></pre>
+<pre><code>## Warning: Same attribute for columns and rows, row names are ignored</code></pre>
+<pre class="r"><code>plot(test_w2,
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2)</code></pre>
+<p><img src="lab4_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<p>#ego characterics</p>
+<pre class="r"><code># Scraping the # of citations of all papers published during per wave 
+
+
+df_scholars &lt;- do.call(rbind, scholars$demographics)
+
+mail = &quot;kalle.stoffers@ru.nl&quot;
+
+
+#empty list
+citations_per_wave &lt;- list()
+
+
+for (author in df_scholars$au_id[1:675]) {
+
+#fetch papers per authors
+papers &lt;- oa_fetch(
+  entity = &quot;works&quot;,
+  author.id = author,
+  mailto = mail)
+
+# check if papers is NULL or has 0 rows
+  if (is.null(papers) || nrow(papers) == 0) {
+    # fill with 0 citations for both waves
+    citations &lt;- tibble(
+      au_id = author,
+      citations_w1 = 0,
+      citations_w2 = 0
+    )
+  } else {
+    # wave 1 citations
+    citations_w1 &lt;- papers |&gt;
+      filter(publication_year &gt;= 2015 &amp; publication_year &lt;= 2018) |&gt;
+      summarise(citations_w1 = sum(cited_by_count, na.rm = TRUE))
+
+    # wave 2 citations
+    citations_w2 &lt;- papers |&gt;
+      filter(publication_year &gt;= 2019 &amp; publication_year &lt;= 2023) |&gt;
+      summarise(citations_w2 = sum(cited_by_count, na.rm = TRUE))
+
+    # handle case where one of the summaries might return 0 rows
+    if (nrow(citations_w1) == 0) citations_w1 &lt;- tibble(citations_w1 = 0)
+    if (nrow(citations_w2) == 0) citations_w2 &lt;- tibble(citations_w2 = 0)
+
+#join the two
+citations &lt;- merge(citations_w1, citations_w2)
+
+citations &lt;- citations|&gt;
+  mutate(au_id = author) |&gt;
+  relocate(au_id)
+}
+  
+citations_per_wave[[author]] &lt;- citations
+
+}
+  
+
+#merge met originele dataset
+citations_df &lt;- bind_rows(citations_per_wave)
+
+df &lt;- left_join(df_scholars, citations_df, by = &quot;au_id&quot;)
+
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, file, &quot;_&quot;, datename, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fsave(df)</code></pre>
+<pre class="r"><code>#descriptives citations
+
+df&lt;- fload(&quot;~/REMA/Jaar 2/Social Networks/KS_labjournal/data/processed/df_20250929.rda&quot;)
+
+
+summary(df$citations_w1)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0     0.0    45.0   256.8   264.0 17808.0</code></pre>
+<pre class="r"><code>summary (df$citations_w2)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0    12.0    64.0   174.5   181.0  5030.0</code></pre>
+<pre class="r"><code>#remove outlier
+df&lt;- df |&gt; filter(citations_w1 &lt;= 6000)
+summary (df$citations_w2)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     0.0    12.0    64.0   167.3   180.8  4836.0</code></pre>
+<pre class="r"><code>df_long &lt;- df|&gt;
+  pivot_longer(cols = c(citations_w1, citations_w2),
+               names_to = &quot;wave&quot;,
+               names_prefix = &quot;citations_w&quot;,
+               values_to = &quot;citations&quot;) |&gt;
+  mutate(wave = as.factor(wave))
+
+ggplot(df_long, aes(x = citations, color = wave)) + geom_density()</code></pre>
+<p><img src="lab4_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="homophily" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Homophily</h1>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsgNCINCmF1dGhvcjogIkthbGxlIFN0b2ZmZXJzIg0KZGF0ZTogIjIwMjUtMDktMjYiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQpgYGB7cn0NCnJtKGxpc3QgPSBscygpKQ0KDQojaW5zdGFsbC5wYWNrYWdlcygic25hIikNCmxpYnJhcnkob3BlbmFsZXhSKQ0KbGlicmFyeSh0aWR5dmVyc2UpDQpyZXF1aXJlKGlncmFwaCkNCg0KZyA8LSBtYWtlX2dyYXBoKCJaYWNoYXJ5IikNCnBsb3QoZykNCg0KZ21hdCA8LSBhc19hZGphY2VuY3lfbWF0cml4KGcsIHR5cGUgPSAiYm90aCIsIHNwYXJzZSA9IEZBTFNFKQ0KZ21hdA0KDQojIGNoYW5naW5nIFYNClYoZykkc2l6ZSA9IGJldHdlZW5uZXNzKGcsIG5vcm1hbGl6ZWQgPSBULCBkaXJlY3RlZCA9IEZBTFNFKSAqIDYwICsgMTUgICNhZnRlciBzb21lIHRyaWFsIGFuZCBlcnJvcg0KcGxvdChnLCBtb2RlID0gInVuZGlyZWN0ZWQiKQ0KDQpzZXQuc2VlZCgyMzQ1KQ0KbCA8LSBsYXlvdXRfd2l0aF9tZHMoZykgICNodHRwczovL2lncmFwaC5vcmcvci9kb2MvbGF5b3V0X3dpdGhfbWRzLmh0bWwNCnBsb3QoZywgbGF5b3V0ID0gbCkNCg0KbCAgI2xldCB1cyB0YWtlIGEgbG9vayBhdCB0aGUgY29vcmRpbmF0ZXMNCmxbMSwgMV0gPC0gNA0KbFszNCwgMV0gPC0gLTMuNQ0KcGxvdChnLCBsYXlvdXQgPSBsKQ0KDQoNCmBgYA0KDQoNCmBgYHtyfQ0KIyMgbWFraW5nIG5ldHdvcmsgY29sbGFiZXJhdGlvbnMgZGF0YSwgZnJvbSBKVCdzIHR1dG9yaWFsDQoNCg0KZmxvYWQgPC0gZnVuY3Rpb24oZmlsZW5hbWUpIHsNCiAgICBsb2FkKGZpbGVuYW1lKQ0KICAgIGdldChscygpW2xzKCkgIT0gImZpbGVuYW1lIl0pDQp9DQoNCnNjaG9sYXJzIDwtIGZsb2FkKCJDOi9Vc2Vycy9rYWxsZS9PbmVEcml2ZS9Eb2N1bWVudGVuL1JFTUEvSmFhciAyL1NvY2lhbCBOZXR3b3Jrcy9LU19sYWJqb3VybmFsL2RhdGEvcHJvY2Vzc2VkL3NjaG9sYXJzXzIwMjQwOTI0LnJkYSIpDQoNCiNmdW5jdGllIG1ha2VuDQpmY29sbmV0IDwtIGZ1bmN0aW9uKGRhdGEgPSBzY2hvbGFycywgdW5pdmVyc2l0eSA9ICJSVSIsIGRpc2NpcGxpbmUgPSAic29jaW9sb2d5Iiwgd2F2ZXMgPSBsaXN0KGMoMjAxNSwNCiAgICAyMDE4KSwgYygyMDE5LCAyMDIzKSksIHR5cGUgPSBjKCJmaXJzdCIpKSB7DQoNCiAgICAjIHN0ZXAgMQ0KICAgIGRlbW9ncmFwaGljcyA8LSBkby5jYWxsKHJiaW5kLmRhdGEuZnJhbWUsIGRhdGEkZGVtb2dyYXBoaWNzKQ0KICAgIGRlbW9ncmFwaGljcyA8LSBkZW1vZ3JhcGhpY3MgJT4lDQogICAgICAgIG11dGF0ZShVbml2ZXJzaXRlaXQxLjIyID0gcmVwbGFjZShVbml2ZXJzaXRlaXQxLjIyLCBpcy5uYShVbml2ZXJzaXRlaXQxLjIyKSwgIiIpLCBVbml2ZXJzaXRlaXQyLjIyID0gcmVwbGFjZShVbml2ZXJzaXRlaXQyLjIyLA0KICAgICAgICAgICAgaXMubmEoVW5pdmVyc2l0ZWl0Mi4yMiksICIiKSwgVW5pdmVyc2l0ZWl0MS4yNCA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0MS4yNCwgaXMubmEoVW5pdmVyc2l0ZWl0MS4yNCksDQogICAgICAgICAgICAiIiksIFVuaXZlcnNpdGVpdDIuMjQgPSByZXBsYWNlKFVuaXZlcnNpdGVpdDIuMjQsIGlzLm5hKFVuaXZlcnNpdGVpdDIuMjQpLCAiIiksIGRpc2NpcGxpbmUuMjIgPSByZXBsYWNlKGRpc2NpcGxpbmUuMjIsDQogICAgICAgICAgICBpcy5uYShkaXNjaXBsaW5lLjIyKSwgIiIpLCBkaXNjaXBsaW5lLjI0ID0gcmVwbGFjZShkaXNjaXBsaW5lLjI0LCBpcy5uYShkaXNjaXBsaW5lLjI0KSwgIiIpKQ0KDQogICAgc2FtcGxlIDwtIHdoaWNoKChkZW1vZ3JhcGhpY3MkVW5pdmVyc2l0ZWl0MS4yMiAlaW4lIHVuaXZlcnNpdHkgfCBkZW1vZ3JhcGhpY3MkVW5pdmVyc2l0ZWl0Mi4yMiAlaW4lDQogICAgICAgIHVuaXZlcnNpdHkgfCBkZW1vZ3JhcGhpY3MkVW5pdmVyc2l0ZWl0MS4yNCAlaW4lIHVuaXZlcnNpdHkgfCBkZW1vZ3JhcGhpY3MkVW5pdmVyc2l0ZWl0Mi4yNCAlaW4lDQogICAgICAgIHVuaXZlcnNpdHkpICYgKGRlbW9ncmFwaGljcyRkaXNjaXBsaW5lLjIyICVpbiUgZGlzY2lwbGluZSB8IGRlbW9ncmFwaGljcyRkaXNjaXBsaW5lLjI0ICVpbiUgZGlzY2lwbGluZSkpDQoNCiAgICBkZW1vZ3JhcGhpY3Nfc29jIDwtIGRlbW9ncmFwaGljc1tzYW1wbGUsIF0NCiAgICBzY2hvbGFyc19zZWwgPC0gbGFwcGx5KHNjaG9sYXJzLCAiWyIsIHNhbXBsZSkNCg0KICAgICMgc3RlcCAyDQogICAgaWRzIDwtIGRlbW9ncmFwaGljc19zb2MkYXVfaWQNCiAgICBud2F2ZXMgPC0gbGVuZ3RoKHdhdmVzKQ0KICAgIG5ldHMgPC0gYXJyYXkoMCwgZGltID0gYyhud2F2ZXMsIGxlbmd0aChpZHMpLCBsZW5ndGgoaWRzKSksIGRpbW5hbWVzID0gbGlzdCh3YXZlID0gMTpud2F2ZXMsIGlkcywNCiAgICAgICAgaWRzKSkNCiAgICBkaW1uYW1lcyhuZXRzKQ0KDQogICAgIyBzdGVwIDMNCiAgICBkZl93b3JrcyA8LSB0aWJibGUod29ya3NfaWQgPSB1bmxpc3QobGFwcGx5KHNjaG9sYXJzX3NlbCR3b3JrLCBmdW5jdGlvbihsKSBsJGlkKSksIHdvcmtzX2F1dGhvciA9IHVubGlzdChsYXBwbHkoc2Nob2xhcnNfc2VsJHdvcmssDQogICAgICAgIGZ1bmN0aW9uKGwpIGwkYXV0aG9yKSwgcmVjdXJzaXZlID0gRkFMU0UpLCB3b3Jrc195ZWFyID0gdW5saXN0KGxhcHBseShzY2hvbGFyc19zZWwkd29yaywgZnVuY3Rpb24obCkgbCRwdWJsaWNhdGlvbl95ZWFyKSwNCiAgICAgICAgcmVjdXJzaXZlID0gRkFMU0UpKQ0KDQogICAgZGZfd29ya3MgPC0gZGZfd29ya3NbIWR1cGxpY2F0ZWQoZGZfd29ya3MpLCBdDQoNCiAgICAjIHN0ZXAgNA0KICAgIGlmICh0eXBlID09ICJmaXJzdCIpIHsNCiAgICAgICAgZm9yIChqIGluIDE6bndhdmVzKSB7DQogICAgICAgICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXIgPj0gd2F2ZXNbW2pdXVsxXSAmIGRmX3dvcmtzJHdvcmtzX3llYXIgPD0gd2F2ZXNbW2pdXVsyXSwNCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICBmb3IgKGkgaW4gMTpucm93KGRmX3dvcmtzX3cpKSB7DQogICAgICAgICAgICAgICAgZWdvIDwtIGRmX3dvcmtzX3ckd29ya3NfYXV0aG9yW2ldW1sxXV0kYXVfaWRbMV0NCiAgICAgICAgICAgICAgICBhbHRlcnMgPC0gZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZFstMV0NCiAgICAgICAgICAgICAgICBpZiAoc3VtKGlkcyAlaW4lIGVnbykgPiAwICYgc3VtKGlkcyAlaW4lIGFsdGVycykgPiAwKSB7DQogICAgICAgICAgICAgICAgICBuZXRzW2osIHdoaWNoKGlkcyAlaW4lIGVnbyksIHdoaWNoKGlkcyAlaW4lIGFsdGVycyldIDwtIDENCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICB9DQoNCiAgICBpZiAodHlwZSA9PSAibGFzdCIpIHsNCiAgICAgICAgZm9yIChqIGluIDE6bndhdmVzKSB7DQogICAgICAgICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXIgPj0gd2F2ZXNbW2pdXVsxXSAmIGRmX3dvcmtzJHdvcmtzX3llYXIgPD0gd2F2ZXNbW2pdXVsyXSwNCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICBmb3IgKGkgaW4gMTpucm93KGRmX3dvcmtzX3cpKSB7DQogICAgICAgICAgICAgICAgZWdvIDwtIHJldihkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkKVsxXQ0KICAgICAgICAgICAgICAgIGFsdGVycyA8LSByZXYoZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZClbLTFdDQogICAgICAgICAgICAgICAgaWYgKHN1bShpZHMgJWluJSBlZ28pID4gMCAmIHN1bShpZHMgJWluJSBhbHRlcnMpID4gMCkgew0KICAgICAgICAgICAgICAgICAgbmV0c1tqLCB3aGljaChpZHMgJWluJSBlZ28pLCB3aGljaChpZHMgJWluJSBhbHRlcnMpXSA8LSAxDQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgfQ0KDQogICAgaWYgKHR5cGUgPT0gImFsbCIpIHsNCiAgICAgICAgZm9yIChqIGluIDE6bndhdmVzKSB7DQogICAgICAgICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXIgPj0gd2F2ZXNbW2pdXVsxXSAmIGRmX3dvcmtzJHdvcmtzX3llYXIgPD0gd2F2ZXNbW2pdXVsyXSwNCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICBmb3IgKGkgaW4gMTpucm93KGRmX3dvcmtzX3cpKSB7DQogICAgICAgICAgICAgICAgZWdvcyA8LSBkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkDQogICAgICAgICAgICAgICAgaWYgKHN1bShpZHMgJWluJSBlZ29zKSA+IDApIHsNCiAgICAgICAgICAgICAgICAgIG5ldHNbaiwgd2hpY2goaWRzICVpbiUgZWdvcyksIHdoaWNoKGlkcyAlaW4lIGVnb3MpXSA8LSAxDQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgfQ0KICAgIG91dHB1dCA8LSBsaXN0KCkNCiAgICBvdXRwdXQkZGF0YSA8LSBzY2hvbGFyc19zZWwNCiAgICBvdXRwdXQkbmV0cyA8LSBuZXRzDQogICAgcmV0dXJuKG91dHB1dCkNCn0NCg0KYGBgDQoNCiMgRGVzY3JpcHRpdmUgc3RhdGlzdGljcyBmb3IgdGhlIG5ldHdvcmsNCg0KYGBge3J9DQojZnVuY3RpZSBnZWJydWlrZW4NCg0KZGF0YSA8LSBmY29sbmV0KGRhdGEgPSBzY2hvbGFycywgDQogICAgICAgICAgICAgICAgdW5pdmVyc2l0eSA9ICJSVSIsIA0KICAgICAgICAgICAgICAgIGRpc2NpcGxpbmUgPSAic29jaW9sb2d5IiwgDQogICAgICAgICAgICAgICAgd2F2ZXMgPSBsaXN0KGMoMjAxNSwgMjAxOCksIGMoMjAxOSwgMjAyMykpLCANCiAgICAgICAgICAgICAgICB0eXBlID0gYygiYWxsIikpDQoNCiNmaXJzdCB3YXZlDQpuZXRfdzEgPC0gZGF0YSRuZXRzWzEsLF0NCmRpYWcobmV0X3cxKSA8LSAwDQpnIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChuZXRfdzEsIG1vZGUgPSAidW5kaXJlY3RlZCIsIGRpYWcgPSBGQUxTRSkNCg0KI2RlbnNpdHkNCmRlbnNpdHkgPC0gZWRnZV9kZW5zaXR5KGcpDQpkZW5zaXR5DQoNCg0KI2RlZ3JlZSBjZW50cmFsaXR5DQojZWdvIGxldmVsDQpkZWdyZWUoZykNCg0KI25ldHdvcmsgbGV2ZWwNCm1lYW4oZGVncmVlKGcsIG1vZGUgPSAiYWxsIikpDQoNCg0KI3RyYW5zaXRpdml0eQ0KdHJhbnNpdGl2aXR5KGcsIHR5cGUgPSAidW5kaXJlY3RlZCIpDQoNCg0KI3Bsb3QNCnRlc3RfdzEgPC0gaWdyYXBoOjpncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoDQogIGRhdGEkbmV0c1sxLCxdLCAjZm9yIHRoaXMgZXhhbXBsZSBJIHRha2UgdGhlIGZpcnN0IHdhdmUgb2YgZGF0YS4gKHRodXMgSSBzZWxlY3QgdGhlIGFycmF5IG9mIG5ldHdvcmtzIGFuZCB0YWtlIHRoZSBmaXJzdCBtYXRyaXgpDQogIG1vZGUgPSBjKCJ1bmRpcmVjdGVkIiksDQogIHdlaWdodGVkID0gTlVMTCwNCiAgZGlhZyA9IEZBTFNFLA0KICBhZGQuY29sbmFtZXMgPSBOVUxMLA0KICBhZGQucm93bmFtZXMgPSBOVUxMDQopDQoNCnBsb3QodGVzdF93MSwNCiAgdmVydGV4LmxhYmVsID0gTkEsDQogIGVkZ2Uud2lkdGggPSAwLjIsDQogIGVkZ2UuYXJyb3cuc2l6ZSA9MC4yKQ0KDQoNCiMjIyBzZWNvbmQgd2F2ZQ0KDQojZHVpZGVsaWprIG1lZXIgZGVuc2l0eSwgY2VudHJhbGl0eSBlbiBtaW5kZXIgaXNvbGF0ZXMuDQoNCm5ldF93MiA8LSBkYXRhJG5ldHNbMiwsXQ0KZGlhZyhuZXRfdzIpIDwtIDANCmcyIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChuZXRfdzIsIG1vZGUgPSAidW5kaXJlY3RlZCIsIGRpYWcgPSBGQUxTRSkNCg0KI2RlbnNpdHkNCmRlbnNpdHkyIDwtIGVkZ2VfZGVuc2l0eShnMikNCmRlbnNpdHkyDQoNCg0KI2RlZ3JlZSBjZW50cmFsaXR5DQojZWdvIGxldmVsDQpkZWdyZWUgKGcyKQ0KDQojbmV0d29yayBsZXZlbA0KbWVhbihkZWdyZWUoZzIsIG1vZGUgPSAiYWxsIikpDQoNCg0KI3RyYW5zaXRpdml0eQ0KdHJhbnNpdGl2aXR5KGcyLCB0eXBlID0gInVuZGlyZWN0ZWQiKQ0KDQoNCg0KDQp0ZXN0X3cyIDwtIGlncmFwaDo6Z3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4KA0KICBkYXRhJG5ldHNbMiwsXSwNCiAgbW9kZSA9IGMoInVuZGlyZWN0ZWQiKSwNCiAgd2VpZ2h0ZWQgPSBOVUxMLA0KICBkaWFnID0gRkFMU0UsDQogIGFkZC5jb2xuYW1lcyA9IE5VTEwsDQogIGFkZC5yb3duYW1lcyA9IE5VTEwNCikNCg0KcGxvdCh0ZXN0X3cyLA0KICB2ZXJ0ZXgubGFiZWwgPSBOQSwNCiAgZWRnZS53aWR0aCA9IDAuMiwNCiAgZWRnZS5hcnJvdy5zaXplID0wLjIpDQoNCg0KYGBgDQoNCiNlZ28gY2hhcmFjdGVyaWNzDQoNCmBgYHtyLCBldmFsPUZBTFNFLCBlY2hvPVRSVUV9DQojIFNjcmFwaW5nIHRoZSAjIG9mIGNpdGF0aW9ucyBvZiBhbGwgcGFwZXJzIHB1Ymxpc2hlZCBkdXJpbmcgcGVyIHdhdmUgDQoNCg0KZGZfc2Nob2xhcnMgPC0gZG8uY2FsbChyYmluZCwgc2Nob2xhcnMkZGVtb2dyYXBoaWNzKQ0KDQptYWlsID0gImthbGxlLnN0b2ZmZXJzQHJ1Lm5sIg0KDQoNCiNlbXB0eSBsaXN0DQpjaXRhdGlvbnNfcGVyX3dhdmUgPC0gbGlzdCgpDQoNCg0KZm9yIChhdXRob3IgaW4gZGZfc2Nob2xhcnMkYXVfaWRbMTo2NzVdKSB7DQoNCiNmZXRjaCBwYXBlcnMgcGVyIGF1dGhvcnMNCnBhcGVycyA8LSBvYV9mZXRjaCgNCiAgZW50aXR5ID0gIndvcmtzIiwNCiAgYXV0aG9yLmlkID0gYXV0aG9yLA0KICBtYWlsdG8gPSBtYWlsKQ0KDQojIGNoZWNrIGlmIHBhcGVycyBpcyBOVUxMIG9yIGhhcyAwIHJvd3MNCiAgaWYgKGlzLm51bGwocGFwZXJzKSB8fCBucm93KHBhcGVycykgPT0gMCkgew0KICAgICMgZmlsbCB3aXRoIDAgY2l0YXRpb25zIGZvciBib3RoIHdhdmVzDQogICAgY2l0YXRpb25zIDwtIHRpYmJsZSgNCiAgICAgIGF1X2lkID0gYXV0aG9yLA0KICAgICAgY2l0YXRpb25zX3cxID0gMCwNCiAgICAgIGNpdGF0aW9uc193MiA9IDANCiAgICApDQogIH0gZWxzZSB7DQogICAgIyB3YXZlIDEgY2l0YXRpb25zDQogICAgY2l0YXRpb25zX3cxIDwtIHBhcGVycyB8Pg0KICAgICAgZmlsdGVyKHB1YmxpY2F0aW9uX3llYXIgPj0gMjAxNSAmIHB1YmxpY2F0aW9uX3llYXIgPD0gMjAxOCkgfD4NCiAgICAgIHN1bW1hcmlzZShjaXRhdGlvbnNfdzEgPSBzdW0oY2l0ZWRfYnlfY291bnQsIG5hLnJtID0gVFJVRSkpDQoNCiAgICAjIHdhdmUgMiBjaXRhdGlvbnMNCiAgICBjaXRhdGlvbnNfdzIgPC0gcGFwZXJzIHw+DQogICAgICBmaWx0ZXIocHVibGljYXRpb25feWVhciA+PSAyMDE5ICYgcHVibGljYXRpb25feWVhciA8PSAyMDIzKSB8Pg0KICAgICAgc3VtbWFyaXNlKGNpdGF0aW9uc193MiA9IHN1bShjaXRlZF9ieV9jb3VudCwgbmEucm0gPSBUUlVFKSkNCg0KICAgICMgaGFuZGxlIGNhc2Ugd2hlcmUgb25lIG9mIHRoZSBzdW1tYXJpZXMgbWlnaHQgcmV0dXJuIDAgcm93cw0KICAgIGlmIChucm93KGNpdGF0aW9uc193MSkgPT0gMCkgY2l0YXRpb25zX3cxIDwtIHRpYmJsZShjaXRhdGlvbnNfdzEgPSAwKQ0KICAgIGlmIChucm93KGNpdGF0aW9uc193MikgPT0gMCkgY2l0YXRpb25zX3cyIDwtIHRpYmJsZShjaXRhdGlvbnNfdzIgPSAwKQ0KDQojam9pbiB0aGUgdHdvDQpjaXRhdGlvbnMgPC0gbWVyZ2UoY2l0YXRpb25zX3cxLCBjaXRhdGlvbnNfdzIpDQoNCmNpdGF0aW9ucyA8LSBjaXRhdGlvbnN8Pg0KICBtdXRhdGUoYXVfaWQgPSBhdXRob3IpIHw+DQogIHJlbG9jYXRlKGF1X2lkKQ0KfQ0KICANCmNpdGF0aW9uc19wZXJfd2F2ZVtbYXV0aG9yXV0gPC0gY2l0YXRpb25zDQoNCn0NCiAgDQoNCiNtZXJnZSBtZXQgb3JpZ2luZWxlIGRhdGFzZXQNCmNpdGF0aW9uc19kZiA8LSBiaW5kX3Jvd3MoY2l0YXRpb25zX3Blcl93YXZlKQ0KDQpkZiA8LSBsZWZ0X2pvaW4oZGZfc2Nob2xhcnMsIGNpdGF0aW9uc19kZiwgYnkgPSAiYXVfaWQiKQ0KDQoNCmZzYXZlIDwtIGZ1bmN0aW9uKHgsIGZpbGUgPSBOVUxMLCBsb2NhdGlvbiA9ICIuL2RhdGEvcHJvY2Vzc2VkLyIpIHsNCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEiKSwgZGlyLmNyZWF0ZSgiZGF0YSIpLCBGQUxTRSkNCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEvcHJvY2Vzc2VkIiksIGRpci5jcmVhdGUoImRhdGEvcHJvY2Vzc2VkIiksIEZBTFNFKQ0KICAgIGlmIChpcy5udWxsKGZpbGUpKQ0KICAgICAgICBmaWxlID0gZGVwYXJzZShzdWJzdGl0dXRlKHgpKQ0KICAgIGRhdGVuYW1lIDwtIHN1YnN0cihnc3ViKCJbOi1dIiwgIiIsIFN5cy50aW1lKCkpLCAxLCA4KQ0KICAgIHRvdGFsbmFtZSA8LSBwYXN0ZShsb2NhdGlvbiwgZmlsZSwgIl8iLCBkYXRlbmFtZSwgIi5yZGEiLCBzZXAgPSAiIikNCiAgICBzYXZlKHgsIGZpbGUgPSB0b3RhbG5hbWUpICAjbmVlZCB0byBmaXggaWYgZmlsZSBpcyByZWxvYWRlZCBhcyBpbnB1dCBuYW1lLCBub3QgYXMgeC4gDQp9DQoNCmZzYXZlKGRmKQ0KDQpgYGANCg0KYGBge3J9DQojZGVzY3JpcHRpdmVzIGNpdGF0aW9ucw0KDQpkZjwtIGZsb2FkKCJ+L1JFTUEvSmFhciAyL1NvY2lhbCBOZXR3b3Jrcy9LU19sYWJqb3VybmFsL2RhdGEvcHJvY2Vzc2VkL2RmXzIwMjUwOTI5LnJkYSIpDQoNCg0Kc3VtbWFyeShkZiRjaXRhdGlvbnNfdzEpDQpzdW1tYXJ5IChkZiRjaXRhdGlvbnNfdzIpDQoNCiNyZW1vdmUgb3V0bGllcg0KZGY8LSBkZiB8PiBmaWx0ZXIoY2l0YXRpb25zX3cxIDw9IDYwMDApDQpzdW1tYXJ5IChkZiRjaXRhdGlvbnNfdzIpDQoNCmRmX2xvbmcgPC0gZGZ8Pg0KICBwaXZvdF9sb25nZXIoY29scyA9IGMoY2l0YXRpb25zX3cxLCBjaXRhdGlvbnNfdzIpLA0KICAgICAgICAgICAgICAgbmFtZXNfdG8gPSAid2F2ZSIsDQogICAgICAgICAgICAgICBuYW1lc19wcmVmaXggPSAiY2l0YXRpb25zX3ciLA0KICAgICAgICAgICAgICAgdmFsdWVzX3RvID0gImNpdGF0aW9ucyIpIHw+DQogIG11dGF0ZSh3YXZlID0gYXMuZmFjdG9yKHdhdmUpKQ0KDQpnZ3Bsb3QoZGZfbG9uZywgYWVzKHggPSBjaXRhdGlvbnMsIGNvbG9yID0gd2F2ZSkpICsgZ2VvbV9kZW5zaXR5KCkNCg0KYGBgDQoNCg0KIyBIb21vcGhpbHkNCg0KDQoNCg0K</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("lab4.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
