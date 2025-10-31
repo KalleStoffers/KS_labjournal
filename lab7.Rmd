@@ -1,0 +1,308 @@
+---
+title: "Week 7"
+author: "Kalle Stoffers"
+date: "2025-10-17"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#start clean
+rm(list=ls())
+```
+
+```{r}
+#Custom functions
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+colorize <- function(x, color) {
+    sprintf("<span style='color: %s;'>%s</span>", color, x)
+}
+
+#the big one
+fcolnet <- function(data = scholars, university = "RU", discipline = "sociology", waves = list(c(2015,
+    2018), c(2019, 2023)), type = c("first")) {
+
+    # step 1
+    demographics <- do.call(rbind.data.frame, data$demographics)
+    demographics <- demographics %>%
+        mutate(Universiteit1.22 = replace(Universiteit1.22, is.na(Universiteit1.22), ""), Universiteit2.22 = replace(Universiteit2.22,
+            is.na(Universiteit2.22), ""), Universiteit1.24 = replace(Universiteit1.24, is.na(Universiteit1.24),
+            ""), Universiteit2.24 = replace(Universiteit2.24, is.na(Universiteit2.24), ""), discipline.22 = replace(discipline.22,
+            is.na(discipline.22), ""), discipline.24 = replace(discipline.24, is.na(discipline.24), ""))
+
+    sample <- which((demographics$Universiteit1.22 %in% university | demographics$Universiteit2.22 %in%
+        university | demographics$Universiteit1.24 %in% university | demographics$Universiteit2.24 %in%
+        university) & (demographics$discipline.22 %in% discipline | demographics$discipline.24 %in% discipline))
+
+    demographics_soc <- demographics[sample, ]
+    scholars_sel <- lapply(scholars, "[", sample)
+
+    # step 2
+    ids <- demographics_soc$au_id
+    nwaves <- length(waves)
+    nets <- array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids,
+        ids))
+    dimnames(nets)
+
+    # step 3
+    df_works <- tibble(works_id = unlist(lapply(scholars_sel$work, function(l) l$id)), works_author = unlist(lapply(scholars_sel$work,
+        function(l) l$author), recursive = FALSE), works_year = unlist(lapply(scholars_sel$work, function(l) l$publication_year),
+        recursive = FALSE))
+
+    df_works <- df_works[!duplicated(df_works), ]
+
+    # step 4
+    if (type == "first") {
+        for (j in 1:nwaves) {
+            df_works_w <- df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego <- df_works_w$works_author[i][[1]]$au_id[1]
+                alters <- df_works_w$works_author[i][[1]]$au_id[-1]
+                if (sum(ids %in% ego) > 0 & sum(ids %in% alters) > 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] <- 1
+                }
+            }
+        }
+    }
+
+    if (type == "last") {
+        for (j in 1:nwaves) {
+            df_works_w <- df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego <- rev(df_works_w$works_author[i][[1]]$au_id)[1]
+                alters <- rev(df_works_w$works_author[i][[1]]$au_id)[-1]
+                if (sum(ids %in% ego) > 0 & sum(ids %in% alters) > 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] <- 1
+                }
+            }
+        }
+    }
+
+    if (type == "all") {
+        for (j in 1:nwaves) {
+            df_works_w <- df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                egos <- df_works_w$works_author[i][[1]]$au_id
+                if (sum(ids %in% egos) > 0) {
+                  nets[j, which(ids %in% egos), which(ids %in% egos)] <- 1
+                }
+            }
+        }
+    }
+    output <- list()
+    output$data <- scholars_sel
+    output$nets <- nets
+    return(output)
+}
+
+fpackage.check(c("tidyverse", "RSiena"))
+
+```
+
+
+#Add citations to the data
+```{r}
+scholars <- fload("C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/processed/scholars_20240924.rda")
+
+
+scholars_net <- fcolnet(data = scholars, 
+                university = c("RU", "UU", "RUG", "UvA", "VU", "EUR", "Leiden", "UvT"), 
+                discipline = c("sociology", "political science"), 
+                waves = list(c(2015, 2018), c(2019, 2023)), 
+                type = c("all"))
+
+df_ego <- do.call(rbind.data.frame, scholars_net$data$demographics)
+
+df_citations <-  fload("C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/processed/df_20250929.rda")
+
+#merging
+df_ego <- df_ego |>
+  left_join(df_citations |> select(Naam, citations_w1, citations_w2),
+            by = "Naam")
+
+```
+
+
+#make ordinal variable function
+```{r}
+
+table(df_ego$Functie.24, useNA = "always")
+
+#categories:
+#(bijzonder) hoogleraar, UHD, UD, postdoc/senior/docent/researcher, PhD (external).
+
+
+df_ego <- df_ego |>
+  mutate(functie_level =
+           case_when(
+             grepl("hoogleraar|professor", tolower(Functie.24)) ~ 5,
+             grepl("universitair hoofddocent|uhd", tolower(Functie.24)) ~ 4,
+             grepl("universitair docent|unversitair docent", tolower(Functie.24)) ~ 3,
+             grepl("postdoc|senior|fellow", tolower(Functie.24)) ~ 2,
+             tolower(Functie.24) %in% c(
+               "docent", "lecturer", "onderzoeker", "onderzoeker/lecturer", 
+               "lecturer and researcher", "lecturer/researcher", 
+               "docent (gepensioneerd)", "docent?", "gast/ onderzoeker", 
+               "gastonderzoeker", "gepensioneerd docent sociologie", 
+               "guest researcher"
+             ) ~ 2,
+             tolower(Functie.24) %in% c("doctoral researcher", "doctoral student", "part-time doctoral researcher") ~ 1,
+             grepl("phd|junior|promovendus", tolower(Functie.24)) ~ 1,
+             .default = NA
+           )
+         )
+
+
+table(df_ego$functie_level, df_ego$Functie.24, useNA="always")
+table(df_ego$functie_level, useNA = "always")
+
+fsave(df_ego)
+
+```
+
+#First analyses (undirected network)
+
+## Homophily?
+
+```{r}
+#Step 1: define data
+
+wave1 <- scholars_net$nets[1,,]
+wave2 <- scholars_net$nets[2,,]
+
+##some checks
+dim(wave1)
+dim(wave2)
+
+#should be 0
+sum(is.na(wave1))
+
+#set diagonal to 0
+sum(diag(wave2)==0)
+
+diag(wave1) <- 0
+diag(wave2) <- 0
+
+#only 1s and 0s
+sum(wave1>1)
+
+#at least some 1s
+sum(wave1>0)
+
+
+#make array
+nets <- array(data = c(wave1, wave2), dim = c(dim(wave1), 2))
+
+# dependent
+net <- sienaDependent(nets)
+
+#independent
+
+functie <- coCovar(df_ego$functie_level)
+
+mydata <- sienaDataCreate(net, functie)
+
+```
+
+
+```{r}
+#Step 2: effects
+myeff <- getEffects(mydata)
+myeff
+
+```
+
+```{r}
+#Step 3: initial description
+
+print01Report(mydata, modelname = "./results/secondtest_scholars")
+
+```
+
+```{r}
+#step 4: specify model
+myeff <- getEffects(mydata)
+myeff <- includeEffects(myeff, gwesp, outAct)
+myeff <- includeEffects(myeff, simX, interaction1 = "functie")
+
+myeff
+```
+
+```{r, eval=FALSE}
+#Estimate
+myAlgorithm <- sienaAlgorithmCreate(projname = "scholars")
+EstM1 <- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
+
+EstM1
+
+```
+
+```{r, eval=FALSE}
+#GOF
+
+gof1 <- sienaGOF(EstM1, IndegreeDistribution, verbose = FALSE, join = T, varName ="net")
+
+?sienaGOF
+
+plot(gof1)
+
+RI <- RSiena:::sienaRI(data=mydata, ans= EstM1)
+
+class(RI)
+
+RSiena:::plot.sienaRI(RI, addPieChart = T, legendColumns = 3)
+```
+Still to-do:
+
+- Behaviour model (continuous dep variable!)
+- Make plot (department + discipline)
+- Goodness of fit analyses + plot
+- Add new dataset
+- Write introduction etc.
+- Data/methods: explain why undirected network
+
+
+
+```{r}
+
+
+```
+
+
+
+

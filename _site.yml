@@ -20,6 +20,14 @@ navbar:
         href: lab3.html
       - text: "Week 4"
         href: lab4.html
+      - text: "Week 5"
+        href: RSiena-example.html
+      - text: "Week 6"
+        href: lab6.html
+      - text: "Week 7"
+        href: lab7.html
+    - text: "Final project"
+      href: final_project.html
         # here, other .Rmds can be added
 
 

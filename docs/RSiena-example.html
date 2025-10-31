@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Kalle Stoffers" />
+
+<meta name="date" content="2025-10-03" />
+
+<title>Week 5</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="lab2.html">Week 2</a>
+    </li>
+    <li>
+      <a href="lab3.html">Week 3</a>
+    </li>
+    <li>
+      <a href="lab4.html">Week 4</a>
+    </li>
+    <li>
+      <a href="RSiena-example.html">Week 5</a>
+    </li>
+    <li>
+      <a href="lab6.html">Week 6</a>
+    </li>
+    <li>
+      <a href="lab7.html">Week 7</a>
+    </li>
+  </ul>
+</li>
+<li>
+  <a href="final_project.html">Final project</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/KalleStoffers/KS_labjournal">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Week 5</h1>
+<h4 class="author">Kalle Stoffers</h4>
+<h4 class="date">2025-10-03</h4>
+
+</div>
+
+
+<div id="getting-started" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Getting started</h1>
+<pre class="r"><code>rm (list=ls())
+
+fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, datename, file, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}
+
+fcolnet &lt;- function(data = scholars, university = &quot;RU&quot;, discipline = &quot;sociology&quot;, waves = list(c(2015,
+    2018), c(2019, 2023)), type = c(&quot;first&quot;)) {
+
+    # step 1
+    demographics &lt;- do.call(rbind.data.frame, data$demographics)
+    demographics &lt;- demographics %&gt;%
+        mutate(Universiteit1.22 = replace(Universiteit1.22, is.na(Universiteit1.22), &quot;&quot;), Universiteit2.22 = replace(Universiteit2.22,
+            is.na(Universiteit2.22), &quot;&quot;), Universiteit1.24 = replace(Universiteit1.24, is.na(Universiteit1.24),
+            &quot;&quot;), Universiteit2.24 = replace(Universiteit2.24, is.na(Universiteit2.24), &quot;&quot;), discipline.22 = replace(discipline.22,
+            is.na(discipline.22), &quot;&quot;), discipline.24 = replace(discipline.24, is.na(discipline.24), &quot;&quot;))
+
+    sample &lt;- which((demographics$Universiteit1.22 %in% university | demographics$Universiteit2.22 %in%
+        university | demographics$Universiteit1.24 %in% university | demographics$Universiteit2.24 %in%
+        university) &amp; (demographics$discipline.22 %in% discipline | demographics$discipline.24 %in% discipline))
+
+    demographics_soc &lt;- demographics[sample, ]
+    scholars_sel &lt;- lapply(scholars, &quot;[&quot;, sample)
+
+    # step 2
+    ids &lt;- demographics_soc$au_id
+    nwaves &lt;- length(waves)
+    nets &lt;- array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids,
+        ids))
+    dimnames(nets)
+
+    # step 3
+    df_works &lt;- tibble(works_id = unlist(lapply(scholars_sel$work, function(l) l$id)), works_author = unlist(lapply(scholars_sel$work,
+        function(l) l$author), recursive = FALSE), works_year = unlist(lapply(scholars_sel$work, function(l) l$publication_year),
+        recursive = FALSE))
+
+    df_works &lt;- df_works[!duplicated(df_works), ]
+
+    # step 4
+    if (type == &quot;first&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- df_works_w$works_author[i][[1]]$au_id[1]
+                alters &lt;- df_works_w$works_author[i][[1]]$au_id[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;last&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[1]
+                alters &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;all&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                egos &lt;- df_works_w$works_author[i][[1]]$au_id
+                if (sum(ids %in% egos) &gt; 0) {
+                  nets[j, which(ids %in% egos), which(ids %in% egos)] &lt;- 1
+                }
+            }
+        }
+    }
+    output &lt;- list()
+    output$data &lt;- scholars_sel
+    output$nets &lt;- nets
+    return(output)
+}
+
+packages = c(&quot;RSiena&quot;, &quot;tidyverse&quot;)
+fpackage.check(packages)</code></pre>
+<pre><code>## [[1]]
+## NULL
+## 
+## [[2]]
+## NULL</code></pre>
+</div>
+<div id="step-1-define-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Step 1: define
+data</h1>
+<pre class="r"><code>scholars &lt;- fload(&quot;data/processed/scholars_20240924.rda&quot;)
+
+test &lt;- fcolnet(data = scholars, 
+                university = c(&quot;RU&quot;, &quot;UU&quot;), 
+                discipline = &quot;sociology&quot;, 
+                waves = list(c(2015, 2018), c(2019, 2023)), 
+                type = c(&quot;first&quot;))
+
+
+wave1 &lt;- test$nets[1,,]
+wave2 &lt;- test$nets[2,,]
+
+#some checks
+dim(wave1)</code></pre>
+<pre><code>## [1] 100 100</code></pre>
+<pre class="r"><code>dim(wave2)</code></pre>
+<pre><code>## [1] 100 100</code></pre>
+<pre class="r"><code>sum(is.na(wave1))</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>sum(diag(wave1)==0)</code></pre>
+<pre><code>## [1] 99</code></pre>
+<pre class="r"><code>sum(wave2&gt;1)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>sum(wave2&gt;0)</code></pre>
+<pre><code>## [1] 132</code></pre>
+<pre class="r"><code>#make array
+nets &lt;- array(data = c(wave1, wave2), dim = c(dim(wave1), 2))
+
+# dependent
+net &lt;- sienaDependent(nets)
+
+#independent
+df&lt;- test$data
+df_ego &lt;- do.call(rbind.data.frame, df$demographics)
+
+df_ego$Functie.22[is.na(df_ego$Functie.22)] &lt;- &quot;.&quot;
+df_ego$Functie.24[is.na(df_ego$Functie.24)] &lt;- &quot;.&quot;
+
+df_ego$functie &lt;- ifelse(df_ego$Functie.22==&quot;Hoogleraar&quot;, 1, 0)
+df_ego$functie &lt;- ifelse(df_ego$Functie.24==&quot;Hoogleraar&quot;, 1, df_ego$functie)
+df_ego$functie &lt;- ifelse(df_ego$Functie.22==&quot;Bijzonder hoogleraar&quot;, 1, df_ego$functie)
+df_ego$functie &lt;- ifelse(df_ego$Functie.24==&quot;Bijzonder hoogleraar&quot;, 1, df_ego$functie)
+
+table(df_ego$functie, useNA=&quot;always&quot;)</code></pre>
+<pre><code>## 
+##    0    1 &lt;NA&gt; 
+##   85   15    0</code></pre>
+<pre class="r"><code>functie &lt;- coCovar(df_ego$functie)
+
+mydata &lt;- sienaDataCreate(net, functie)</code></pre>
+</div>
+<div id="effects" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Effects</h1>
+<pre class="r"><code>myeff &lt;- getEffects(mydata)
+myeff</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm
+## 1 basic rate parameter net TRUE    FALSE FALSE    2.70882   0   
+## 2 outdegree (density)      TRUE    FALSE FALSE   -1.62905   0   
+## 3 reciprocity              TRUE    FALSE FALSE    0.00000   0</code></pre>
+<p>#Inital Description</p>
+<pre class="r"><code>ifelse(!dir.exists(&quot;results&quot;), dir.create(&quot;results&quot;), FALSE)</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>print01Report(mydata, modelname = &quot;./results/firsttest_scholars&quot;)</code></pre>
+</div>
+<div id="specify-model" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Specify model</h1>
+<pre class="r"><code>myeff &lt;- getEffects(mydata)
+myeff &lt;- includeEffects(
+  myeff, 
+  outAct,
+  isolateNet
+)</code></pre>
+<pre><code>##   effectNumber effectName           shortName  include fix   test  initialValue parm
+## 1 106          outdegree - activity outAct     TRUE    FALSE FALSE          0   0   
+## 2 149          network-isolate      isolateNet TRUE    FALSE FALSE          0   0</code></pre>
+<pre class="r"><code>myeff &lt;- includeEffects(myeff, egoX, interaction1 = &quot;functie&quot;)</code></pre>
+<pre><code>##   effectNumber effectName  shortName include fix   test  initialValue parm
+## 1 253          functie ego egoX      TRUE    FALSE FALSE          0   0</code></pre>
+<pre class="r"><code>myeff &lt;- includeEffects(myeff, altX, interaction1 = &quot;functie&quot;)</code></pre>
+<pre><code>##   effectNumber effectName    shortName include fix   test  initialValue parm
+## 1 238          functie alter altX      TRUE    FALSE FALSE          0   0</code></pre>
+<pre class="r"><code>myeff &lt;- includeEffects(myeff, sameX, interaction1 = &quot;functie&quot;)</code></pre>
+<pre><code>##   effectNumber effectName   shortName include fix   test  initialValue parm
+## 1 309          same functie sameX     TRUE    FALSE FALSE          0   0</code></pre>
+<pre class="r"><code>myeff</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm
+## 1 basic rate parameter net TRUE    FALSE FALSE    2.70882   0   
+## 2 outdegree (density)      TRUE    FALSE FALSE   -1.62905   0   
+## 3 reciprocity              TRUE    FALSE FALSE    0.00000   0   
+## 4 outdegree - activity     TRUE    FALSE FALSE    0.00000   0   
+## 5 network-isolate          TRUE    FALSE FALSE    0.00000   0   
+## 6 functie alter            TRUE    FALSE FALSE    0.00000   0   
+## 7 functie ego              TRUE    FALSE FALSE    0.00000   0   
+## 8 same functie             TRUE    FALSE FALSE    0.00000   0</code></pre>
+</div>
+<div id="estimate" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Estimate</h1>
+<pre class="r"><code>myAlgorithm &lt;- sienaAlgorithmCreate(projname = &quot;scholars&quot;)</code></pre>
+<pre><code>## If you use this algorithm object, siena07 will create/use an output file scholars.txt .</code></pre>
+<pre class="r"><code>EstM1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
+
+EstM1</code></pre>
+<pre><code>## Estimates, standard errors and convergence t-ratios
+## 
+##                                Estimate   Standard   Convergence 
+##                                             Error      t-ratio   
+## 
+## Rate parameters: 
+##   0       Rate parameter        3.6553  ( 0.4893   )             
+## 
+## Other parameters: 
+##   1. eval outdegree (density)  -0.6923  ( 1.3763   )    0.0696   
+##   2. eval reciprocity           2.6938  ( 0.3593   )   -0.0229   
+##   3. eval outdegree - activity -0.3040  ( 0.2436   )    0.0220   
+##   4. eval network-isolate       5.1484  ( 1.7725   )   -0.0538   
+##   5. eval functie alter         1.4434  ( 0.3218   )   -0.0005   
+##   6. eval functie ego          -3.3458  ( 1.0559   )   -0.0040   
+##   7. eval same functie         -0.1756  ( 0.3177   )    0.0341   
+## 
+## Overall maximum convergence ratio:    0.1190 
+## 
+## 
+## Total of 2750 iteration steps.</code></pre>
+</div>
+<div id="homework" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Homework</h1>
+<p>Read manual, pick one relevant statistics in chapter 12. Present.
+Make data ready.</p>
+<p><img src="images/SimX%20.jpg" /></p>
+<pre class="r"><code>#start clean
+rm(list=ls())</code></pre>
+<pre class="r"><code>#Custom functions
+fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, datename, file, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}
+
+colorize &lt;- function(x, color) {
+    sprintf(&quot;&lt;span style=&#39;color: %s;&#39;&gt;%s&lt;/span&gt;&quot;, color, x)
+}
+
+#the big one
+fcolnet &lt;- function(data = scholars, university = &quot;RU&quot;, discipline = &quot;sociology&quot;, waves = list(c(2015,
+    2018), c(2019, 2023)), type = c(&quot;first&quot;)) {
+
+    # step 1
+    demographics &lt;- do.call(rbind.data.frame, data$demographics)
+    demographics &lt;- demographics %&gt;%
+        mutate(Universiteit1.22 = replace(Universiteit1.22, is.na(Universiteit1.22), &quot;&quot;), Universiteit2.22 = replace(Universiteit2.22,
+            is.na(Universiteit2.22), &quot;&quot;), Universiteit1.24 = replace(Universiteit1.24, is.na(Universiteit1.24),
+            &quot;&quot;), Universiteit2.24 = replace(Universiteit2.24, is.na(Universiteit2.24), &quot;&quot;), discipline.22 = replace(discipline.22,
+            is.na(discipline.22), &quot;&quot;), discipline.24 = replace(discipline.24, is.na(discipline.24), &quot;&quot;))
+
+    sample &lt;- which((demographics$Universiteit1.22 %in% university | demographics$Universiteit2.22 %in%
+        university | demographics$Universiteit1.24 %in% university | demographics$Universiteit2.24 %in%
+        university) &amp; (demographics$discipline.22 %in% discipline | demographics$discipline.24 %in% discipline))
+
+    demographics_soc &lt;- demographics[sample, ]
+    scholars_sel &lt;- lapply(scholars, &quot;[&quot;, sample)
+
+    # step 2
+    ids &lt;- demographics_soc$au_id
+    nwaves &lt;- length(waves)
+    nets &lt;- array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids,
+        ids))
+    dimnames(nets)
+
+    # step 3
+    df_works &lt;- tibble(works_id = unlist(lapply(scholars_sel$work, function(l) l$id)), works_author = unlist(lapply(scholars_sel$work,
+        function(l) l$author), recursive = FALSE), works_year = unlist(lapply(scholars_sel$work, function(l) l$publication_year),
+        recursive = FALSE))
+
+    df_works &lt;- df_works[!duplicated(df_works), ]
+
+    # step 4
+    if (type == &quot;first&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- df_works_w$works_author[i][[1]]$au_id[1]
+                alters &lt;- df_works_w$works_author[i][[1]]$au_id[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;last&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[1]
+                alters &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;all&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                egos &lt;- df_works_w$works_author[i][[1]]$au_id
+                if (sum(ids %in% egos) &gt; 0) {
+                  nets[j, which(ids %in% egos), which(ids %in% egos)] &lt;- 1
+                }
+            }
+        }
+    }
+    output &lt;- list()
+    output$data &lt;- scholars_sel
+    output$nets &lt;- nets
+    return(output)
+}
+
+fpackage.check(c(&quot;tidyverse&quot;, &quot;RSiena&quot;))</code></pre>
+<pre><code>## [[1]]
+## NULL
+## 
+## [[2]]
+## NULL</code></pre>
+</div>
+<div id="add-citations-to-the-data" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Add citations to the
+data</h1>
+<pre class="r"><code>scholars &lt;- fload(&quot;C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/processed/scholars_20240924.rda&quot;)
+
+
+scholars_net &lt;- fcolnet(data = scholars, 
+                university = c(&quot;RU&quot;, &quot;UU&quot;, &quot;RUG&quot;, &quot;UvA&quot;, &quot;VU&quot;, &quot;EUR&quot;, &quot;Leiden&quot;, &quot;UvT&quot;), 
+                discipline = c(&quot;sociology&quot;, &quot;political science&quot;), 
+                waves = list(c(2015, 2018), c(2019, 2023)), 
+                type = c(&quot;all&quot;))
+
+df_ego &lt;- do.call(rbind.data.frame, scholars_net$data$demographics)
+
+df_citations &lt;-  fload(&quot;C:/Users/kalle/OneDrive/Documenten/REMA/Jaar 2/Social Networks/KS_labjournal/data/processed/df_20250929.rda&quot;)
+
+#merging
+df_ego &lt;- df_ego |&gt;
+  left_join(df_citations |&gt; select(Naam, citations_w1, citations_w2),
+            by = &quot;Naam&quot;)</code></pre>
+</div>
+<div id="make-ordinal-variable-function" class="section level1"
+number="8">
+<h1><span class="header-section-number">8</span> make ordinal variable
+function</h1>
+<pre class="r"><code>table(df_ego$Functie.24, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+##                                                                                             ? 
+##                                                                                             1 
+##                                                                            Adjunct hoogleraar 
+##                                                                                             1 
+##                                                                          Associate researcher 
+##                                                                                             1 
+##                                                                          Bijzonder hoogleraar 
+##                                                                                            14 
+##                                                                          Bijzonder Hoogleraar 
+##                                                                                             2 
+##                                                                                   Datamanager 
+##                                                                                             1 
+##                                                                                 Directeur SoG 
+##                                                                                             1 
+##                                                                                        Docent 
+##                                                                                            24 
+##                                                                        Docent (gepensioneerd) 
+##                                                                                             1 
+##                                                                                   Docent, phd 
+##                                                                                             1 
+##                                                                            Docent/PhD student 
+##                                                                                             1 
+##                                                                                       Docent? 
+##                                                                                             1 
+##                                                                           Doctoral Researcher 
+##                                                                                             2 
+##                                                                              Doctoral student 
+##                                                                                             1 
+## Does project at UvA, has worked as professor, lecturer, and research fellow at different unis 
+##                                                                                             1 
+##                                                                           Emeritus hoogleraar 
+##                                                                                            12 
+##                                                                   Emeritus hoogleraar (gast?) 
+##                                                                                             1 
+##                                                                                  External Phd 
+##                                                                                             6 
+##                                                                                  External PhD 
+##                                                                                             1 
+##                                                                                        Fellow 
+##                                                                                             1 
+##                                                                             Gast/ Onderzoeker 
+##                                                                                             1 
+##                                                        Gast/Emeritus universitair hoofddocent 
+##                                                                                             1 
+##                                                                               Gastonderzoeker 
+##                                                                                             1 
+##                                                               Gepensioneerd docent sociologie 
+##                                                                                             1 
+##                                                                             Gepensioneerd UHD 
+##                                                                                             1 
+##                                                                              Guest Researcher 
+##                                                                                             2 
+##                                                                            Honorary professor 
+##                                                                                             2 
+##                                                                              Hoofdonderzoeker 
+##                                                                                             1 
+##                                                                                    Hoogleraar 
+##                                                                                            83 
+##                                                                             Hoogleraar (gast) 
+##                                                                                             1 
+##                                                                         Hoogleraar (visiting) 
+##                                                                                             1 
+##                                                         Hoogleraar + Universitair hoofddocent 
+##                                                                                             1 
+##                                                                Hoogleraar/Afdelingsvoorzitter 
+##                                                                                             1 
+##                                                                                 Junior docent 
+##                                                                                             1 
+##                                                                            Junior onderzoeker 
+##                                                                                             1 
+##                                                                                      Lecturer 
+##                                                                                             9 
+##                                                                       Lecturer and Researcher 
+##                                                                                             1 
+##                                                                           Lecturer/researcher 
+##                                                                                             1 
+##                                                       Managing director/co-founder SocioQuest 
+##                                                                                             1 
+##                                                                                    Medewerker 
+##                                                                                             1 
+##                                                                         Onderwijsontwikkelaar 
+##                                                                                             1 
+##                                                                                   Onderzoeker 
+##                                                                                            34 
+##                                                                          Onderzoeker/Lecturer 
+##                                                                                             1 
+##                                                                              Onderzoeksfellow 
+##                                                                                             1 
+##                                                                          Onderzoeksmedewerker 
+##                                                                                             1 
+##                                                                              Other researcher 
+##                                                                                             1 
+##                                                                 part-time doctoral researcher 
+##                                                                                             1 
+##                                                                                 Phd &amp; postdoc 
+##                                                                                             1 
+##                                                                                   Phd Student 
+##                                                                                             1 
+##                                                                                   PhD student 
+##                                                                                            42 
+##                                                                                   PhD Student 
+##                                                                                           112 
+##                                                                     PhD Student anthropologie 
+##                                                                                             1 
+##                                                                    PhD student, Junior Docent 
+##                                                                                             2 
+##                                                                              PhD student/Gast 
+##                                                                                             2 
+##                                                                                  PhD studentt 
+##                                                                                             1 
+##                                                                                       Postdoc 
+##                                                                                            22 
+##                                                                  Postdoctoral Research Fellow 
+##                                                                                             1 
+##                                                                                   Promovendus 
+##                                                                                             1 
+##                                                                               Research fellow 
+##                                                                                             1 
+##                                                                           Scholarship student 
+##                                                                                             1 
+##                                                                               Senior lecturer 
+##                                                                                             3 
+##                                                                            Senior Onderzoeker 
+##                                                                                             1 
+##                                                                        Senior Research Fellow 
+##                                                                                             1 
+##                                                                             Senior researcher 
+##                                                                                             1 
+##                                                                             Senior Researcher 
+##                                                                                             1 
+##                                                                   Senior researcher part-time 
+##                                                                                             1 
+##                                                                           Universitair docent 
+##                                                                                           154 
+##                                                                           Universitair Docent 
+##                                                                                             3 
+##                                                                      Universitair hoofddocent 
+##                                                                                            84 
+##                                                   Universitair hoofddocent/Onderwijsdirecteur 
+##                                                                                             1 
+##                                                                        Unversitair docent GPM 
+##                                                                                             1 
+##                                                                    Wetenschappelijk directeur 
+##                                                                                             1 
+##                                                                                          &lt;NA&gt; 
+##                                                                                             8</code></pre>
+<pre class="r"><code>#categories:
+#(bijzonder) hoogleraar, UHD, UD, postdoc/senior/docent/researcher, PhD (external).
+
+
+df_ego &lt;- df_ego |&gt;
+  mutate(functie_level =
+           case_when(
+             grepl(&quot;hoogleraar|professor&quot;, tolower(Functie.24)) ~ 5,
+             grepl(&quot;universitair hoofddocent|uhd&quot;, tolower(Functie.24)) ~ 4,
+             grepl(&quot;universitair docent|unversitair docent&quot;, tolower(Functie.24)) ~ 3,
+             grepl(&quot;postdoc|senior|fellow&quot;, tolower(Functie.24)) ~ 2,
+             tolower(Functie.24) %in% c(
+               &quot;docent&quot;, &quot;lecturer&quot;, &quot;onderzoeker&quot;, &quot;onderzoeker/lecturer&quot;, 
+               &quot;lecturer and researcher&quot;, &quot;lecturer/researcher&quot;, 
+               &quot;docent (gepensioneerd)&quot;, &quot;docent?&quot;, &quot;gast/ onderzoeker&quot;, 
+               &quot;gastonderzoeker&quot;, &quot;gepensioneerd docent sociologie&quot;, 
+               &quot;guest researcher&quot;
+             ) ~ 2,
+             tolower(Functie.24) %in% c(&quot;doctoral researcher&quot;, &quot;doctoral student&quot;, &quot;part-time doctoral researcher&quot;) ~ 1,
+             grepl(&quot;phd|junior|promovendus&quot;, tolower(Functie.24)) ~ 1,
+             .default = NA
+           )
+         )
+
+
+table(df_ego$functie_level, df_ego$Functie.24, useNA=&quot;always&quot;)</code></pre>
+<pre><code>##       
+##          ? Adjunct hoogleraar Associate researcher Bijzonder hoogleraar Bijzonder Hoogleraar
+##   1      0                  0                    0                    0                    0
+##   2      0                  0                    0                    0                    0
+##   3      0                  0                    0                    0                    0
+##   4      0                  0                    0                    0                    0
+##   5      0                  1                    0                   14                    2
+##   &lt;NA&gt;   1                  0                    1                    0                    0
+##       
+##        Datamanager Directeur SoG Docent Docent (gepensioneerd) Docent, phd Docent/PhD student
+##   1              0             0      0                      0           1                  1
+##   2              0             0     24                      1           0                  0
+##   3              0             0      0                      0           0                  0
+##   4              0             0      0                      0           0                  0
+##   5              0             0      0                      0           0                  0
+##   &lt;NA&gt;           1             1      0                      0           0                  0
+##       
+##        Docent? Doctoral Researcher Doctoral student
+##   1          0                   2                1
+##   2          1                   0                0
+##   3          0                   0                0
+##   4          0                   0                0
+##   5          0                   0                0
+##   &lt;NA&gt;       0                   0                0
+##       
+##        Does project at UvA, has worked as professor, lecturer, and research fellow at different unis
+##   1                                                                                                0
+##   2                                                                                                0
+##   3                                                                                                0
+##   4                                                                                                0
+##   5                                                                                                1
+##   &lt;NA&gt;                                                                                             0
+##       
+##        Emeritus hoogleraar Emeritus hoogleraar (gast?) External Phd External PhD Fellow
+##   1                      0                           0            6            1      0
+##   2                      0                           0            0            0      1
+##   3                      0                           0            0            0      0
+##   4                      0                           0            0            0      0
+##   5                     12                           1            0            0      0
+##   &lt;NA&gt;                   0                           0            0            0      0
+##       
+##        Gast/ Onderzoeker Gast/Emeritus universitair hoofddocent Gastonderzoeker
+##   1                    0                                      0               0
+##   2                    1                                      0               1
+##   3                    0                                      0               0
+##   4                    0                                      1               0
+##   5                    0                                      0               0
+##   &lt;NA&gt;                 0                                      0               0
+##       
+##        Gepensioneerd docent sociologie Gepensioneerd UHD Guest Researcher Honorary professor
+##   1                                  0                 0                0                  0
+##   2                                  1                 0                2                  0
+##   3                                  0                 0                0                  0
+##   4                                  0                 1                0                  0
+##   5                                  0                 0                0                  2
+##   &lt;NA&gt;                               0                 0                0                  0
+##       
+##        Hoofdonderzoeker Hoogleraar Hoogleraar (gast) Hoogleraar (visiting)
+##   1                   0          0                 0                     0
+##   2                   0          0                 0                     0
+##   3                   0          0                 0                     0
+##   4                   0          0                 0                     0
+##   5                   0         83                 1                     1
+##   &lt;NA&gt;                1          0                 0                     0
+##       
+##        Hoogleraar + Universitair hoofddocent Hoogleraar/Afdelingsvoorzitter Junior docent
+##   1                                        0                              0             1
+##   2                                        0                              0             0
+##   3                                        0                              0             0
+##   4                                        0                              0             0
+##   5                                        1                              1             0
+##   &lt;NA&gt;                                     0                              0             0
+##       
+##        Junior onderzoeker Lecturer Lecturer and Researcher Lecturer/researcher
+##   1                     1        0                       0                   0
+##   2                     0        9                       1                   1
+##   3                     0        0                       0                   0
+##   4                     0        0                       0                   0
+##   5                     0        0                       0                   0
+##   &lt;NA&gt;                  0        0                       0                   0
+##       
+##        Managing director/co-founder SocioQuest Medewerker Onderwijsontwikkelaar Onderzoeker
+##   1                                          0          0                     0           0
+##   2                                          0          0                     0          34
+##   3                                          0          0                     0           0
+##   4                                          0          0                     0           0
+##   5                                          0          0                     0           0
+##   &lt;NA&gt;                                       1          1                     1           0
+##       
+##        Onderzoeker/Lecturer Onderzoeksfellow Onderzoeksmedewerker Other researcher
+##   1                       0                0                    0                0
+##   2                       1                1                    0                0
+##   3                       0                0                    0                0
+##   4                       0                0                    0                0
+##   5                       0                0                    0                0
+##   &lt;NA&gt;                    0                0                    1                1
+##       
+##        part-time doctoral researcher Phd &amp; postdoc Phd Student PhD student PhD Student
+##   1                                1             0           1          42         112
+##   2                                0             1           0           0           0
+##   3                                0             0           0           0           0
+##   4                                0             0           0           0           0
+##   5                                0             0           0           0           0
+##   &lt;NA&gt;                             0             0           0           0           0
+##       
+##        PhD Student anthropologie PhD student, Junior Docent PhD student/Gast PhD studentt Postdoc
+##   1                            1                          2                2            1       0
+##   2                            0                          0                0            0      22
+##   3                            0                          0                0            0       0
+##   4                            0                          0                0            0       0
+##   5                            0                          0                0            0       0
+##   &lt;NA&gt;                         0                          0                0            0       0
+##       
+##        Postdoctoral Research Fellow Promovendus Research fellow Scholarship student Senior lecturer
+##   1                               0           1               0                   0               0
+##   2                               1           0               1                   0               3
+##   3                               0           0               0                   0               0
+##   4                               0           0               0                   0               0
+##   5                               0           0               0                   0               0
+##   &lt;NA&gt;                            0           0               0                   1               0
+##       
+##        Senior Onderzoeker Senior Research Fellow Senior researcher Senior Researcher
+##   1                     0                      0                 0                 0
+##   2                     1                      1                 1                 1
+##   3                     0                      0                 0                 0
+##   4                     0                      0                 0                 0
+##   5                     0                      0                 0                 0
+##   &lt;NA&gt;                  0                      0                 0                 0
+##       
+##        Senior researcher part-time Universitair docent Universitair Docent Universitair hoofddocent
+##   1                              0                   0                   0                        0
+##   2                              1                   0                   0                        0
+##   3                              0                 154                   3                        0
+##   4                              0                   0                   0                       84
+##   5                              0                   0                   0                        0
+##   &lt;NA&gt;                           0                   0                   0                        0
+##       
+##        Universitair hoofddocent/Onderwijsdirecteur Unversitair docent GPM
+##   1                                              0                      0
+##   2                                              0                      0
+##   3                                              0                      1
+##   4                                              1                      0
+##   5                                              0                      0
+##   &lt;NA&gt;                                           0                      0
+##       
+##        Wetenschappelijk directeur &lt;NA&gt;
+##   1                             0    0
+##   2                             0    0
+##   3                             0    0
+##   4                             0    0
+##   5                             0    0
+##   &lt;NA&gt;                          1    8</code></pre>
+<pre class="r"><code>table(df_ego$functie_level, useNA = &quot;always&quot;)</code></pre>
+<pre><code>## 
+##    1    2    3    4    5 &lt;NA&gt; 
+##  177  112  158   87  120   20</code></pre>
+<pre class="r"><code>fsave(df_ego)</code></pre>
+</div>
+<div id="first-analyses-undirected-network" class="section level1"
+number="9">
+<h1><span class="header-section-number">9</span> First analyses
+(undirected network)</h1>
+<div id="homophily" class="section level2" number="9.1">
+<h2><span class="header-section-number">9.1</span> Homophily?</h2>
+<pre class="r"><code>#Step 1: define data
+
+wave1 &lt;- scholars_net$nets[1,,]
+wave2 &lt;- scholars_net$nets[2,,]
+
+##some checks
+dim(wave1)</code></pre>
+<pre><code>## [1] 674 674</code></pre>
+<pre class="r"><code>dim(wave2)</code></pre>
+<pre><code>## [1] 674 674</code></pre>
+<pre class="r"><code>#should be 0
+sum(is.na(wave1))</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>#set diagonal to 0
+sum(diag(wave2)==0)</code></pre>
+<pre><code>## [1] 26</code></pre>
+<pre class="r"><code>diag(wave1) &lt;- 0
+diag(wave2) &lt;- 0
+
+#only 1s and 0s
+sum(wave1&gt;1)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>#at least some 1s
+sum(wave1&gt;0)</code></pre>
+<pre><code>## [1] 940</code></pre>
+<pre class="r"><code>#make array
+nets &lt;- array(data = c(wave1, wave2), dim = c(dim(wave1), 2))
+
+# dependent
+net &lt;- sienaDependent(nets)
+
+#independent
+
+functie &lt;- coCovar(df_ego$functie_level)
+
+mydata &lt;- sienaDataCreate(net, functie)</code></pre>
+<pre class="r"><code>#Step 2: effects
+myeff &lt;- getEffects(mydata)
+myeff</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm
+## 1 basic rate parameter net TRUE    FALSE FALSE    4.52955   0   
+## 2 degree (density)         TRUE    FALSE FALSE   -1.66572   0</code></pre>
+<pre class="r"><code>#Step 3: initial description
+
+print01Report(mydata, modelname = &quot;./results/secondtest_scholars&quot;)</code></pre>
+<pre class="r"><code>#step 4: specify model
+myeff &lt;- getEffects(mydata)
+myeff &lt;- includeEffects(myeff, gwesp, outAct)</code></pre>
+<pre><code>##   effectNumber effectName    shortName include fix   test  initialValue parm
+## 1 21           GWESP (#)     gwesp     TRUE    FALSE FALSE          0   69  
+## 2 39           degree of ego outAct    TRUE    FALSE FALSE          0    0</code></pre>
+<pre class="r"><code>myeff &lt;- includeEffects(myeff, simX, interaction1 = &quot;functie&quot;)</code></pre>
+<pre><code>##   effectNumber effectName         shortName include fix   test  initialValue parm
+## 1 153          functie similarity simX      TRUE    FALSE FALSE          0   0</code></pre>
+<pre class="r"><code>myeff</code></pre>
+<pre><code>##   effectName               include fix   test  initialValue parm
+## 1 basic rate parameter net TRUE    FALSE FALSE    4.52955    0  
+## 2 degree (density)         TRUE    FALSE FALSE   -1.66572    0  
+## 3 GWESP (#)                TRUE    FALSE FALSE    0.00000   69  
+## 4 degree of ego            TRUE    FALSE FALSE    0.00000    0  
+## 5 functie similarity       TRUE    FALSE FALSE    0.00000    0</code></pre>
+<pre class="r"><code>#Estimate
+myAlgorithm &lt;- sienaAlgorithmCreate(projname = &quot;scholars&quot;)
+EstM1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
+
+EstM1</code></pre>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldlZWsgNSINCmF1dGhvcjogIkthbGxlIFN0b2ZmZXJzIg0KZGF0ZTogIjIwMjUtMTAtMDMiDQpvdXRwdXQ6IGh0bWxfZG9jdW1lbnQNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQojIEdldHRpbmcgc3RhcnRlZA0KDQpgYGB7cn0NCnJtIChsaXN0PWxzKCkpDQoNCmZwYWNrYWdlLmNoZWNrIDwtIGZ1bmN0aW9uKHBhY2thZ2VzKSB7DQogICAgbGFwcGx5KHBhY2thZ2VzLCBGVU4gPSBmdW5jdGlvbih4KSB7DQogICAgICAgIGlmICghcmVxdWlyZSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpKSB7DQogICAgICAgICAgICBpbnN0YWxsLnBhY2thZ2VzKHgsIGRlcGVuZGVuY2llcyA9IFRSVUUpDQogICAgICAgICAgICBsaWJyYXJ5KHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkNCiAgICAgICAgfQ0KICAgIH0pDQp9DQoNCmZzYXZlIDwtIGZ1bmN0aW9uKHgsIGZpbGUgPSBOVUxMLCBsb2NhdGlvbiA9ICIuL2RhdGEvcHJvY2Vzc2VkLyIpIHsNCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEiKSwgZGlyLmNyZWF0ZSgiZGF0YSIpLCBGQUxTRSkNCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEvcHJvY2Vzc2VkIiksIGRpci5jcmVhdGUoImRhdGEvcHJvY2Vzc2VkIiksIEZBTFNFKQ0KICAgIGlmIChpcy5udWxsKGZpbGUpKQ0KICAgICAgICBmaWxlID0gZGVwYXJzZShzdWJzdGl0dXRlKHgpKQ0KICAgIGRhdGVuYW1lIDwtIHN1YnN0cihnc3ViKCJbOi1dIiwgIiIsIFN5cy50aW1lKCkpLCAxLCA4KQ0KICAgIHRvdGFsbmFtZSA8LSBwYXN0ZShsb2NhdGlvbiwgZGF0ZW5hbWUsIGZpbGUsICIucmRhIiwgc2VwID0gIiIpDQogICAgc2F2ZSh4LCBmaWxlID0gdG90YWxuYW1lKSAgI25lZWQgdG8gZml4IGlmIGZpbGUgaXMgcmVsb2FkZWQgYXMgaW5wdXQgbmFtZSwgbm90IGFzIHguIA0KfQ0KDQpmbG9hZCA8LSBmdW5jdGlvbihmaWxlbmFtZSkgew0KICAgIGxvYWQoZmlsZW5hbWUpDQogICAgZ2V0KGxzKClbbHMoKSAhPSAiZmlsZW5hbWUiXSkNCn0NCg0KZnNob3dkZiA8LSBmdW5jdGlvbih4LCAuLi4pIHsNCiAgICBrbml0cjo6a2FibGUoeCwgZGlnaXRzID0gMiwgImh0bWwiLCAuLi4pICU+JQ0KICAgICAgICBrYWJsZUV4dHJhOjprYWJsZV9zdHlsaW5nKGJvb3RzdHJhcF9vcHRpb25zID0gYygic3RyaXBlZCIsICJob3ZlciIpKSAlPiUNCiAgICAgICAga2FibGVFeHRyYTo6c2Nyb2xsX2JveCh3aWR0aCA9ICIxMDAlIiwgaGVpZ2h0ID0gIjMwMHB4IikNCn0NCg0KZmNvbG5ldCA8LSBmdW5jdGlvbihkYXRhID0gc2Nob2xhcnMsIHVuaXZlcnNpdHkgPSAiUlUiLCBkaXNjaXBsaW5lID0gInNvY2lvbG9neSIsIHdhdmVzID0gbGlzdChjKDIwMTUsDQogICAgMjAxOCksIGMoMjAxOSwgMjAyMykpLCB0eXBlID0gYygiZmlyc3QiKSkgew0KDQogICAgIyBzdGVwIDENCiAgICBkZW1vZ3JhcGhpY3MgPC0gZG8uY2FsbChyYmluZC5kYXRhLmZyYW1lLCBkYXRhJGRlbW9ncmFwaGljcykNCiAgICBkZW1vZ3JhcGhpY3MgPC0gZGVtb2dyYXBoaWNzICU+JQ0KICAgICAgICBtdXRhdGUoVW5pdmVyc2l0ZWl0MS4yMiA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0MS4yMiwgaXMubmEoVW5pdmVyc2l0ZWl0MS4yMiksICIiKSwgVW5pdmVyc2l0ZWl0Mi4yMiA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0Mi4yMiwNCiAgICAgICAgICAgIGlzLm5hKFVuaXZlcnNpdGVpdDIuMjIpLCAiIiksIFVuaXZlcnNpdGVpdDEuMjQgPSByZXBsYWNlKFVuaXZlcnNpdGVpdDEuMjQsIGlzLm5hKFVuaXZlcnNpdGVpdDEuMjQpLA0KICAgICAgICAgICAgIiIpLCBVbml2ZXJzaXRlaXQyLjI0ID0gcmVwbGFjZShVbml2ZXJzaXRlaXQyLjI0LCBpcy5uYShVbml2ZXJzaXRlaXQyLjI0KSwgIiIpLCBkaXNjaXBsaW5lLjIyID0gcmVwbGFjZShkaXNjaXBsaW5lLjIyLA0KICAgICAgICAgICAgaXMubmEoZGlzY2lwbGluZS4yMiksICIiKSwgZGlzY2lwbGluZS4yNCA9IHJlcGxhY2UoZGlzY2lwbGluZS4yNCwgaXMubmEoZGlzY2lwbGluZS4yNCksICIiKSkNCg0KICAgIHNhbXBsZSA8LSB3aGljaCgoZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDEuMjIgJWluJSB1bml2ZXJzaXR5IHwgZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDIuMjIgJWluJQ0KICAgICAgICB1bml2ZXJzaXR5IHwgZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDEuMjQgJWluJSB1bml2ZXJzaXR5IHwgZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDIuMjQgJWluJQ0KICAgICAgICB1bml2ZXJzaXR5KSAmIChkZW1vZ3JhcGhpY3MkZGlzY2lwbGluZS4yMiAlaW4lIGRpc2NpcGxpbmUgfCBkZW1vZ3JhcGhpY3MkZGlzY2lwbGluZS4yNCAlaW4lIGRpc2NpcGxpbmUpKQ0KDQogICAgZGVtb2dyYXBoaWNzX3NvYyA8LSBkZW1vZ3JhcGhpY3Nbc2FtcGxlLCBdDQogICAgc2Nob2xhcnNfc2VsIDwtIGxhcHBseShzY2hvbGFycywgIlsiLCBzYW1wbGUpDQoNCiAgICAjIHN0ZXAgMg0KICAgIGlkcyA8LSBkZW1vZ3JhcGhpY3Nfc29jJGF1X2lkDQogICAgbndhdmVzIDwtIGxlbmd0aCh3YXZlcykNCiAgICBuZXRzIDwtIGFycmF5KDAsIGRpbSA9IGMobndhdmVzLCBsZW5ndGgoaWRzKSwgbGVuZ3RoKGlkcykpLCBkaW1uYW1lcyA9IGxpc3Qod2F2ZSA9IDE6bndhdmVzLCBpZHMsDQogICAgICAgIGlkcykpDQogICAgZGltbmFtZXMobmV0cykNCg0KICAgICMgc3RlcCAzDQogICAgZGZfd29ya3MgPC0gdGliYmxlKHdvcmtzX2lkID0gdW5saXN0KGxhcHBseShzY2hvbGFyc19zZWwkd29yaywgZnVuY3Rpb24obCkgbCRpZCkpLCB3b3Jrc19hdXRob3IgPSB1bmxpc3QobGFwcGx5KHNjaG9sYXJzX3NlbCR3b3JrLA0KICAgICAgICBmdW5jdGlvbihsKSBsJGF1dGhvciksIHJlY3Vyc2l2ZSA9IEZBTFNFKSwgd29ya3NfeWVhciA9IHVubGlzdChsYXBwbHkoc2Nob2xhcnNfc2VsJHdvcmssIGZ1bmN0aW9uKGwpIGwkcHVibGljYXRpb25feWVhciksDQogICAgICAgIHJlY3Vyc2l2ZSA9IEZBTFNFKSkNCg0KICAgIGRmX3dvcmtzIDwtIGRmX3dvcmtzWyFkdXBsaWNhdGVkKGRmX3dvcmtzKSwgXQ0KDQogICAgIyBzdGVwIDQNCiAgICBpZiAodHlwZSA9PSAiZmlyc3QiKSB7DQogICAgICAgIGZvciAoaiBpbiAxOm53YXZlcykgew0KICAgICAgICAgICAgZGZfd29ya3NfdyA8LSBkZl93b3Jrc1tkZl93b3JrcyR3b3Jrc195ZWFyID49IHdhdmVzW1tqXV1bMV0gJiBkZl93b3JrcyR3b3Jrc195ZWFyIDw9IHdhdmVzW1tqXV1bMl0sDQogICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgZm9yIChpIGluIDE6bnJvdyhkZl93b3Jrc193KSkgew0KICAgICAgICAgICAgICAgIGVnbyA8LSBkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkWzFdDQogICAgICAgICAgICAgICAgYWx0ZXJzIDwtIGRmX3dvcmtzX3ckd29ya3NfYXV0aG9yW2ldW1sxXV0kYXVfaWRbLTFdDQogICAgICAgICAgICAgICAgaWYgKHN1bShpZHMgJWluJSBlZ28pID4gMCAmIHN1bShpZHMgJWluJSBhbHRlcnMpID4gMCkgew0KICAgICAgICAgICAgICAgICAgbmV0c1tqLCB3aGljaChpZHMgJWluJSBlZ28pLCB3aGljaChpZHMgJWluJSBhbHRlcnMpXSA8LSAxDQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgfQ0KDQogICAgaWYgKHR5cGUgPT0gImxhc3QiKSB7DQogICAgICAgIGZvciAoaiBpbiAxOm53YXZlcykgew0KICAgICAgICAgICAgZGZfd29ya3NfdyA8LSBkZl93b3Jrc1tkZl93b3JrcyR3b3Jrc195ZWFyID49IHdhdmVzW1tqXV1bMV0gJiBkZl93b3JrcyR3b3Jrc195ZWFyIDw9IHdhdmVzW1tqXV1bMl0sDQogICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgZm9yIChpIGluIDE6bnJvdyhkZl93b3Jrc193KSkgew0KICAgICAgICAgICAgICAgIGVnbyA8LSByZXYoZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZClbMV0NCiAgICAgICAgICAgICAgICBhbHRlcnMgPC0gcmV2KGRmX3dvcmtzX3ckd29ya3NfYXV0aG9yW2ldW1sxXV0kYXVfaWQpWy0xXQ0KICAgICAgICAgICAgICAgIGlmIChzdW0oaWRzICVpbiUgZWdvKSA+IDAgJiBzdW0oaWRzICVpbiUgYWx0ZXJzKSA+IDApIHsNCiAgICAgICAgICAgICAgICAgIG5ldHNbaiwgd2hpY2goaWRzICVpbiUgZWdvKSwgd2hpY2goaWRzICVpbiUgYWx0ZXJzKV0gPC0gMQ0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgIH0NCg0KICAgIGlmICh0eXBlID09ICJhbGwiKSB7DQogICAgICAgIGZvciAoaiBpbiAxOm53YXZlcykgew0KICAgICAgICAgICAgZGZfd29ya3NfdyA8LSBkZl93b3Jrc1tkZl93b3JrcyR3b3Jrc195ZWFyID49IHdhdmVzW1tqXV1bMV0gJiBkZl93b3JrcyR3b3Jrc195ZWFyIDw9IHdhdmVzW1tqXV1bMl0sDQogICAgICAgICAgICAgICAgXQ0KICAgICAgICAgICAgZm9yIChpIGluIDE6bnJvdyhkZl93b3Jrc193KSkgew0KICAgICAgICAgICAgICAgIGVnb3MgPC0gZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZA0KICAgICAgICAgICAgICAgIGlmIChzdW0oaWRzICVpbiUgZWdvcykgPiAwKSB7DQogICAgICAgICAgICAgICAgICBuZXRzW2osIHdoaWNoKGlkcyAlaW4lIGVnb3MpLCB3aGljaChpZHMgJWluJSBlZ29zKV0gPC0gMQ0KICAgICAgICAgICAgICAgIH0NCiAgICAgICAgICAgIH0NCiAgICAgICAgfQ0KICAgIH0NCiAgICBvdXRwdXQgPC0gbGlzdCgpDQogICAgb3V0cHV0JGRhdGEgPC0gc2Nob2xhcnNfc2VsDQogICAgb3V0cHV0JG5ldHMgPC0gbmV0cw0KICAgIHJldHVybihvdXRwdXQpDQp9DQoNCnBhY2thZ2VzID0gYygiUlNpZW5hIiwgInRpZHl2ZXJzZSIpDQpmcGFja2FnZS5jaGVjayhwYWNrYWdlcykNCg0KYGBgDQoNCiMgU3RlcCAxOiBkZWZpbmUgZGF0YQ0KDQpgYGB7cn0NCg0Kc2Nob2xhcnMgPC0gZmxvYWQoImRhdGEvcHJvY2Vzc2VkL3NjaG9sYXJzXzIwMjQwOTI0LnJkYSIpDQoNCnRlc3QgPC0gZmNvbG5ldChkYXRhID0gc2Nob2xhcnMsIA0KICAgICAgICAgICAgICAgIHVuaXZlcnNpdHkgPSBjKCJSVSIsICJVVSIpLCANCiAgICAgICAgICAgICAgICBkaXNjaXBsaW5lID0gInNvY2lvbG9neSIsIA0KICAgICAgICAgICAgICAgIHdhdmVzID0gbGlzdChjKDIwMTUsIDIwMTgpLCBjKDIwMTksIDIwMjMpKSwgDQogICAgICAgICAgICAgICAgdHlwZSA9IGMoImZpcnN0IikpDQoNCg0Kd2F2ZTEgPC0gdGVzdCRuZXRzWzEsLF0NCndhdmUyIDwtIHRlc3QkbmV0c1syLCxdDQoNCiNzb21lIGNoZWNrcw0KZGltKHdhdmUxKQ0KZGltKHdhdmUyKQ0KDQpzdW0oaXMubmEod2F2ZTEpKQ0KDQpzdW0oZGlhZyh3YXZlMSk9PTApDQoNCnN1bSh3YXZlMj4xKQ0KDQpzdW0od2F2ZTI+MCkNCg0KDQojbWFrZSBhcnJheQ0KbmV0cyA8LSBhcnJheShkYXRhID0gYyh3YXZlMSwgd2F2ZTIpLCBkaW0gPSBjKGRpbSh3YXZlMSksIDIpKQ0KDQojIGRlcGVuZGVudA0KbmV0IDwtIHNpZW5hRGVwZW5kZW50KG5ldHMpDQoNCiNpbmRlcGVuZGVudA0KZGY8LSB0ZXN0JGRhdGENCmRmX2VnbyA8LSBkby5jYWxsKHJiaW5kLmRhdGEuZnJhbWUsIGRmJGRlbW9ncmFwaGljcykNCg0KZGZfZWdvJEZ1bmN0aWUuMjJbaXMubmEoZGZfZWdvJEZ1bmN0aWUuMjIpXSA8LSAiLiINCmRmX2VnbyRGdW5jdGllLjI0W2lzLm5hKGRmX2VnbyRGdW5jdGllLjI0KV0gPC0gIi4iDQoNCmRmX2VnbyRmdW5jdGllIDwtIGlmZWxzZShkZl9lZ28kRnVuY3RpZS4yMj09Ikhvb2dsZXJhYXIiLCAxLCAwKQ0KZGZfZWdvJGZ1bmN0aWUgPC0gaWZlbHNlKGRmX2VnbyRGdW5jdGllLjI0PT0iSG9vZ2xlcmFhciIsIDEsIGRmX2VnbyRmdW5jdGllKQ0KZGZfZWdvJGZ1bmN0aWUgPC0gaWZlbHNlKGRmX2VnbyRGdW5jdGllLjIyPT0iQmlqem9uZGVyIGhvb2dsZXJhYXIiLCAxLCBkZl9lZ28kZnVuY3RpZSkNCmRmX2VnbyRmdW5jdGllIDwtIGlmZWxzZShkZl9lZ28kRnVuY3RpZS4yND09IkJpanpvbmRlciBob29nbGVyYWFyIiwgMSwgZGZfZWdvJGZ1bmN0aWUpDQoNCnRhYmxlKGRmX2VnbyRmdW5jdGllLCB1c2VOQT0iYWx3YXlzIikNCg0KZnVuY3RpZSA8LSBjb0NvdmFyKGRmX2VnbyRmdW5jdGllKQ0KDQpteWRhdGEgPC0gc2llbmFEYXRhQ3JlYXRlKG5ldCwgZnVuY3RpZSkNCg0KYGBgDQoNCiMgRWZmZWN0cw0KDQpgYGB7cn0NCm15ZWZmIDwtIGdldEVmZmVjdHMobXlkYXRhKQ0KbXllZmYNCg0KDQpgYGANCg0KI0luaXRhbCBEZXNjcmlwdGlvbg0KDQpgYGB7cn0NCmlmZWxzZSghZGlyLmV4aXN0cygicmVzdWx0cyIpLCBkaXIuY3JlYXRlKCJyZXN1bHRzIiksIEZBTFNFKQ0KDQpwcmludDAxUmVwb3J0KG15ZGF0YSwgbW9kZWxuYW1lID0gIi4vcmVzdWx0cy9maXJzdHRlc3Rfc2Nob2xhcnMiKQ0KDQpgYGANCg0KIyBTcGVjaWZ5IG1vZGVsDQoNCmBgYHtyfQ0KbXllZmYgPC0gZ2V0RWZmZWN0cyhteWRhdGEpDQpteWVmZiA8LSBpbmNsdWRlRWZmZWN0cygNCiAgbXllZmYsIA0KICBvdXRBY3QsDQogIGlzb2xhdGVOZXQNCikNCg0KbXllZmYgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIGVnb1gsIGludGVyYWN0aW9uMSA9ICJmdW5jdGllIikNCg0KbXllZmYgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIGFsdFgsIGludGVyYWN0aW9uMSA9ICJmdW5jdGllIikNCg0KbXllZmYgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIHNhbWVYLCBpbnRlcmFjdGlvbjEgPSAiZnVuY3RpZSIpDQogIA0KbXllZmYNCmBgYA0KDQojIEVzdGltYXRlDQoNCmBgYHtyfQ0KDQpteUFsZ29yaXRobSA8LSBzaWVuYUFsZ29yaXRobUNyZWF0ZShwcm9qbmFtZSA9ICJzY2hvbGFycyIpDQpFc3RNMSA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYsIHJldHVybkRlcHMgPSBUUlVFKQ0KDQpFc3RNMQ0KDQpgYGANCg0KIyBIb21ld29yaw0KDQpSZWFkIG1hbnVhbCwgcGljayBvbmUgcmVsZXZhbnQgc3RhdGlzdGljcyBpbiBjaGFwdGVyIDEyLiBQcmVzZW50LiBNYWtlIGRhdGEgcmVhZHkuDQoNCiFbXShpbWFnZXMvU2ltWCUyMC5qcGcpDQoNCmBgYHtyfQ0KI3N0YXJ0IGNsZWFuDQpybShsaXN0PWxzKCkpDQpgYGANCg0KYGBge3J9DQojQ3VzdG9tIGZ1bmN0aW9ucw0KZnBhY2thZ2UuY2hlY2sgPC0gZnVuY3Rpb24ocGFja2FnZXMpIHsNCiAgICBsYXBwbHkocGFja2FnZXMsIEZVTiA9IGZ1bmN0aW9uKHgpIHsNCiAgICAgICAgaWYgKCFyZXF1aXJlKHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkpIHsNCiAgICAgICAgICAgIGluc3RhbGwucGFja2FnZXMoeCwgZGVwZW5kZW5jaWVzID0gVFJVRSkNCiAgICAgICAgICAgIGxpYnJhcnkoeCwgY2hhcmFjdGVyLm9ubHkgPSBUUlVFKQ0KICAgICAgICB9DQogICAgfSkNCn0NCg0KZnNhdmUgPC0gZnVuY3Rpb24oeCwgZmlsZSA9IE5VTEwsIGxvY2F0aW9uID0gIi4vZGF0YS9wcm9jZXNzZWQvIikgew0KICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YSIpLCBkaXIuY3JlYXRlKCJkYXRhIiksIEZBTFNFKQ0KICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YS9wcm9jZXNzZWQiKSwgZGlyLmNyZWF0ZSgiZGF0YS9wcm9jZXNzZWQiKSwgRkFMU0UpDQogICAgaWYgKGlzLm51bGwoZmlsZSkpDQogICAgICAgIGZpbGUgPSBkZXBhcnNlKHN1YnN0aXR1dGUoeCkpDQogICAgZGF0ZW5hbWUgPC0gc3Vic3RyKGdzdWIoIls6LV0iLCAiIiwgU3lzLnRpbWUoKSksIDEsIDgpDQogICAgdG90YWxuYW1lIDwtIHBhc3RlKGxvY2F0aW9uLCBkYXRlbmFtZSwgZmlsZSwgIi5yZGEiLCBzZXAgPSAiIikNCiAgICBzYXZlKHgsIGZpbGUgPSB0b3RhbG5hbWUpICAjbmVlZCB0byBmaXggaWYgZmlsZSBpcyByZWxvYWRlZCBhcyBpbnB1dCBuYW1lLCBub3QgYXMgeC4gDQp9DQoNCmZsb2FkIDwtIGZ1bmN0aW9uKGZpbGVuYW1lKSB7DQogICAgbG9hZChmaWxlbmFtZSkNCiAgICBnZXQobHMoKVtscygpICE9ICJmaWxlbmFtZSJdKQ0KfQ0KDQpmc2hvd2RmIDwtIGZ1bmN0aW9uKHgsIC4uLikgew0KICAgIGtuaXRyOjprYWJsZSh4LCBkaWdpdHMgPSAyLCAiaHRtbCIsIC4uLikgJT4lDQogICAgICAgIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoYm9vdHN0cmFwX29wdGlvbnMgPSBjKCJzdHJpcGVkIiwgImhvdmVyIikpICU+JQ0KICAgICAgICBrYWJsZUV4dHJhOjpzY3JvbGxfYm94KHdpZHRoID0gIjEwMCUiLCBoZWlnaHQgPSAiMzAwcHgiKQ0KfQ0KDQpjb2xvcml6ZSA8LSBmdW5jdGlvbih4LCBjb2xvcikgew0KICAgIHNwcmludGYoIjxzcGFuIHN0eWxlPSdjb2xvcjogJXM7Jz4lczwvc3Bhbj4iLCBjb2xvciwgeCkNCn0NCg0KI3RoZSBiaWcgb25lDQpmY29sbmV0IDwtIGZ1bmN0aW9uKGRhdGEgPSBzY2hvbGFycywgdW5pdmVyc2l0eSA9ICJSVSIsIGRpc2NpcGxpbmUgPSAic29jaW9sb2d5Iiwgd2F2ZXMgPSBsaXN0KGMoMjAxNSwNCiAgICAyMDE4KSwgYygyMDE5LCAyMDIzKSksIHR5cGUgPSBjKCJmaXJzdCIpKSB7DQoNCiAgICAjIHN0ZXAgMQ0KICAgIGRlbW9ncmFwaGljcyA8LSBkby5jYWxsKHJiaW5kLmRhdGEuZnJhbWUsIGRhdGEkZGVtb2dyYXBoaWNzKQ0KICAgIGRlbW9ncmFwaGljcyA8LSBkZW1vZ3JhcGhpY3MgJT4lDQogICAgICAgIG11dGF0ZShVbml2ZXJzaXRlaXQxLjIyID0gcmVwbGFjZShVbml2ZXJzaXRlaXQxLjIyLCBpcy5uYShVbml2ZXJzaXRlaXQxLjIyKSwgIiIpLCBVbml2ZXJzaXRlaXQyLjIyID0gcmVwbGFjZShVbml2ZXJzaXRlaXQyLjIyLA0KICAgICAgICAgICAgaXMubmEoVW5pdmVyc2l0ZWl0Mi4yMiksICIiKSwgVW5pdmVyc2l0ZWl0MS4yNCA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0MS4yNCwgaXMubmEoVW5pdmVyc2l0ZWl0MS4yNCksDQogICAgICAgICAgICAiIiksIFVuaXZlcnNpdGVpdDIuMjQgPSByZXBsYWNlKFVuaXZlcnNpdGVpdDIuMjQsIGlzLm5hKFVuaXZlcnNpdGVpdDIuMjQpLCAiIiksIGRpc2NpcGxpbmUuMjIgPSByZXBsYWNlKGRpc2NpcGxpbmUuMjIsDQogICAgICAgICAgICBpcy5uYShkaXNjaXBsaW5lLjIyKSwgIiIpLCBkaXNjaXBsaW5lLjI0ID0gcmVwbGFjZShkaXNjaXBsaW5lLjI0LCBpcy5uYShkaXNjaXBsaW5lLjI0KSwgIiIpKQ0KDQogICAgc2FtcGxlIDwtIHdoaWNoKChkZW1vZ3JhcGhpY3MkVW5pdmVyc2l0ZWl0MS4yMiAlaW4lIHVuaXZlcnNpdHkgfCBkZW1vZ3JhcGhpY3MkVW5pdmVyc2l0ZWl0Mi4yMiAlaW4lDQogICAgICAgIHVuaXZlcnNpdHkgfCBkZW1vZ3JhcGhpY3MkVW5pdmVyc2l0ZWl0MS4yNCAlaW4lIHVuaXZlcnNpdHkgfCBkZW1vZ3JhcGhpY3MkVW5pdmVyc2l0ZWl0Mi4yNCAlaW4lDQogICAgICAgIHVuaXZlcnNpdHkpICYgKGRlbW9ncmFwaGljcyRkaXNjaXBsaW5lLjIyICVpbiUgZGlzY2lwbGluZSB8IGRlbW9ncmFwaGljcyRkaXNjaXBsaW5lLjI0ICVpbiUgZGlzY2lwbGluZSkpDQoNCiAgICBkZW1vZ3JhcGhpY3Nfc29jIDwtIGRlbW9ncmFwaGljc1tzYW1wbGUsIF0NCiAgICBzY2hvbGFyc19zZWwgPC0gbGFwcGx5KHNjaG9sYXJzLCAiWyIsIHNhbXBsZSkNCg0KICAgICMgc3RlcCAyDQogICAgaWRzIDwtIGRlbW9ncmFwaGljc19zb2MkYXVfaWQNCiAgICBud2F2ZXMgPC0gbGVuZ3RoKHdhdmVzKQ0KICAgIG5ldHMgPC0gYXJyYXkoMCwgZGltID0gYyhud2F2ZXMsIGxlbmd0aChpZHMpLCBsZW5ndGgoaWRzKSksIGRpbW5hbWVzID0gbGlzdCh3YXZlID0gMTpud2F2ZXMsIGlkcywNCiAgICAgICAgaWRzKSkNCiAgICBkaW1uYW1lcyhuZXRzKQ0KDQogICAgIyBzdGVwIDMNCiAgICBkZl93b3JrcyA8LSB0aWJibGUod29ya3NfaWQgPSB1bmxpc3QobGFwcGx5KHNjaG9sYXJzX3NlbCR3b3JrLCBmdW5jdGlvbihsKSBsJGlkKSksIHdvcmtzX2F1dGhvciA9IHVubGlzdChsYXBwbHkoc2Nob2xhcnNfc2VsJHdvcmssDQogICAgICAgIGZ1bmN0aW9uKGwpIGwkYXV0aG9yKSwgcmVjdXJzaXZlID0gRkFMU0UpLCB3b3Jrc195ZWFyID0gdW5saXN0KGxhcHBseShzY2hvbGFyc19zZWwkd29yaywgZnVuY3Rpb24obCkgbCRwdWJsaWNhdGlvbl95ZWFyKSwNCiAgICAgICAgcmVjdXJzaXZlID0gRkFMU0UpKQ0KDQogICAgZGZfd29ya3MgPC0gZGZfd29ya3NbIWR1cGxpY2F0ZWQoZGZfd29ya3MpLCBdDQoNCiAgICAjIHN0ZXAgNA0KICAgIGlmICh0eXBlID09ICJmaXJzdCIpIHsNCiAgICAgICAgZm9yIChqIGluIDE6bndhdmVzKSB7DQogICAgICAgICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXIgPj0gd2F2ZXNbW2pdXVsxXSAmIGRmX3dvcmtzJHdvcmtzX3llYXIgPD0gd2F2ZXNbW2pdXVsyXSwNCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICBmb3IgKGkgaW4gMTpucm93KGRmX3dvcmtzX3cpKSB7DQogICAgICAgICAgICAgICAgZWdvIDwtIGRmX3dvcmtzX3ckd29ya3NfYXV0aG9yW2ldW1sxXV0kYXVfaWRbMV0NCiAgICAgICAgICAgICAgICBhbHRlcnMgPC0gZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZFstMV0NCiAgICAgICAgICAgICAgICBpZiAoc3VtKGlkcyAlaW4lIGVnbykgPiAwICYgc3VtKGlkcyAlaW4lIGFsdGVycykgPiAwKSB7DQogICAgICAgICAgICAgICAgICBuZXRzW2osIHdoaWNoKGlkcyAlaW4lIGVnbyksIHdoaWNoKGlkcyAlaW4lIGFsdGVycyldIDwtIDENCiAgICAgICAgICAgICAgICB9DQogICAgICAgICAgICB9DQogICAgICAgIH0NCiAgICB9DQoNCiAgICBpZiAodHlwZSA9PSAibGFzdCIpIHsNCiAgICAgICAgZm9yIChqIGluIDE6bndhdmVzKSB7DQogICAgICAgICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXIgPj0gd2F2ZXNbW2pdXVsxXSAmIGRmX3dvcmtzJHdvcmtzX3llYXIgPD0gd2F2ZXNbW2pdXVsyXSwNCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICBmb3IgKGkgaW4gMTpucm93KGRmX3dvcmtzX3cpKSB7DQogICAgICAgICAgICAgICAgZWdvIDwtIHJldihkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkKVsxXQ0KICAgICAgICAgICAgICAgIGFsdGVycyA8LSByZXYoZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZClbLTFdDQogICAgICAgICAgICAgICAgaWYgKHN1bShpZHMgJWluJSBlZ28pID4gMCAmIHN1bShpZHMgJWluJSBhbHRlcnMpID4gMCkgew0KICAgICAgICAgICAgICAgICAgbmV0c1tqLCB3aGljaChpZHMgJWluJSBlZ28pLCB3aGljaChpZHMgJWluJSBhbHRlcnMpXSA8LSAxDQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgfQ0KDQogICAgaWYgKHR5cGUgPT0gImFsbCIpIHsNCiAgICAgICAgZm9yIChqIGluIDE6bndhdmVzKSB7DQogICAgICAgICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXIgPj0gd2F2ZXNbW2pdXVsxXSAmIGRmX3dvcmtzJHdvcmtzX3llYXIgPD0gd2F2ZXNbW2pdXVsyXSwNCiAgICAgICAgICAgICAgICBdDQogICAgICAgICAgICBmb3IgKGkgaW4gMTpucm93KGRmX3dvcmtzX3cpKSB7DQogICAgICAgICAgICAgICAgZWdvcyA8LSBkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkDQogICAgICAgICAgICAgICAgaWYgKHN1bShpZHMgJWluJSBlZ29zKSA+IDApIHsNCiAgICAgICAgICAgICAgICAgIG5ldHNbaiwgd2hpY2goaWRzICVpbiUgZWdvcyksIHdoaWNoKGlkcyAlaW4lIGVnb3MpXSA8LSAxDQogICAgICAgICAgICAgICAgfQ0KICAgICAgICAgICAgfQ0KICAgICAgICB9DQogICAgfQ0KICAgIG91dHB1dCA8LSBsaXN0KCkNCiAgICBvdXRwdXQkZGF0YSA8LSBzY2hvbGFyc19zZWwNCiAgICBvdXRwdXQkbmV0cyA8LSBuZXRzDQogICAgcmV0dXJuKG91dHB1dCkNCn0NCg0KZnBhY2thZ2UuY2hlY2soYygidGlkeXZlcnNlIiwgIlJTaWVuYSIpKQ0KDQpgYGANCg0KIyBBZGQgY2l0YXRpb25zIHRvIHRoZSBkYXRhDQoNCmBgYHtyfQ0Kc2Nob2xhcnMgPC0gZmxvYWQoIkM6L1VzZXJzL2thbGxlL09uZURyaXZlL0RvY3VtZW50ZW4vUkVNQS9KYWFyIDIvU29jaWFsIE5ldHdvcmtzL0tTX2xhYmpvdXJuYWwvZGF0YS9wcm9jZXNzZWQvc2Nob2xhcnNfMjAyNDA5MjQucmRhIikNCg0KDQpzY2hvbGFyc19uZXQgPC0gZmNvbG5ldChkYXRhID0gc2Nob2xhcnMsIA0KICAgICAgICAgICAgICAgIHVuaXZlcnNpdHkgPSBjKCJSVSIsICJVVSIsICJSVUciLCAiVXZBIiwgIlZVIiwgIkVVUiIsICJMZWlkZW4iLCAiVXZUIiksIA0KICAgICAgICAgICAgICAgIGRpc2NpcGxpbmUgPSBjKCJzb2Npb2xvZ3kiLCAicG9saXRpY2FsIHNjaWVuY2UiKSwgDQogICAgICAgICAgICAgICAgd2F2ZXMgPSBsaXN0KGMoMjAxNSwgMjAxOCksIGMoMjAxOSwgMjAyMykpLCANCiAgICAgICAgICAgICAgICB0eXBlID0gYygiYWxsIikpDQoNCmRmX2VnbyA8LSBkby5jYWxsKHJiaW5kLmRhdGEuZnJhbWUsIHNjaG9sYXJzX25ldCRkYXRhJGRlbW9ncmFwaGljcykNCg0KZGZfY2l0YXRpb25zIDwtICBmbG9hZCgiQzovVXNlcnMva2FsbGUvT25lRHJpdmUvRG9jdW1lbnRlbi9SRU1BL0phYXIgMi9Tb2NpYWwgTmV0d29ya3MvS1NfbGFiam91cm5hbC9kYXRhL3Byb2Nlc3NlZC9kZl8yMDI1MDkyOS5yZGEiKQ0KDQojbWVyZ2luZw0KZGZfZWdvIDwtIGRmX2VnbyB8Pg0KICBsZWZ0X2pvaW4oZGZfY2l0YXRpb25zIHw+IHNlbGVjdChOYWFtLCBjaXRhdGlvbnNfdzEsIGNpdGF0aW9uc193MiksDQogICAgICAgICAgICBieSA9ICJOYWFtIikNCg0KYGBgDQoNCiMgbWFrZSBvcmRpbmFsIHZhcmlhYmxlIGZ1bmN0aW9uDQoNCmBgYHtyfQ0KDQp0YWJsZShkZl9lZ28kRnVuY3RpZS4yNCwgdXNlTkEgPSAiYWx3YXlzIikNCg0KI2NhdGVnb3JpZXM6DQojKGJpanpvbmRlcikgaG9vZ2xlcmFhciwgVUhELCBVRCwgcG9zdGRvYy9zZW5pb3IvZG9jZW50L3Jlc2VhcmNoZXIsIFBoRCAoZXh0ZXJuYWwpLg0KDQoNCmRmX2VnbyA8LSBkZl9lZ28gfD4NCiAgbXV0YXRlKGZ1bmN0aWVfbGV2ZWwgPQ0KICAgICAgICAgICBjYXNlX3doZW4oDQogICAgICAgICAgICAgZ3JlcGwoImhvb2dsZXJhYXJ8cHJvZmVzc29yIiwgdG9sb3dlcihGdW5jdGllLjI0KSkgfiA1LA0KICAgICAgICAgICAgIGdyZXBsKCJ1bml2ZXJzaXRhaXIgaG9vZmRkb2NlbnR8dWhkIiwgdG9sb3dlcihGdW5jdGllLjI0KSkgfiA0LA0KICAgICAgICAgICAgIGdyZXBsKCJ1bml2ZXJzaXRhaXIgZG9jZW50fHVudmVyc2l0YWlyIGRvY2VudCIsIHRvbG93ZXIoRnVuY3RpZS4yNCkpIH4gMywNCiAgICAgICAgICAgICBncmVwbCgicG9zdGRvY3xzZW5pb3J8ZmVsbG93IiwgdG9sb3dlcihGdW5jdGllLjI0KSkgfiAyLA0KICAgICAgICAgICAgIHRvbG93ZXIoRnVuY3RpZS4yNCkgJWluJSBjKA0KICAgICAgICAgICAgICAgImRvY2VudCIsICJsZWN0dXJlciIsICJvbmRlcnpvZWtlciIsICJvbmRlcnpvZWtlci9sZWN0dXJlciIsIA0KICAgICAgICAgICAgICAgImxlY3R1cmVyIGFuZCByZXNlYXJjaGVyIiwgImxlY3R1cmVyL3Jlc2VhcmNoZXIiLCANCiAgICAgICAgICAgICAgICJkb2NlbnQgKGdlcGVuc2lvbmVlcmQpIiwgImRvY2VudD8iLCAiZ2FzdC8gb25kZXJ6b2VrZXIiLCANCiAgICAgICAgICAgICAgICJnYXN0b25kZXJ6b2VrZXIiLCAiZ2VwZW5zaW9uZWVyZCBkb2NlbnQgc29jaW9sb2dpZSIsIA0KICAgICAgICAgICAgICAgImd1ZXN0IHJlc2VhcmNoZXIiDQogICAgICAgICAgICAgKSB+IDIsDQogICAgICAgICAgICAgdG9sb3dlcihGdW5jdGllLjI0KSAlaW4lIGMoImRvY3RvcmFsIHJlc2VhcmNoZXIiLCAiZG9jdG9yYWwgc3R1ZGVudCIsICJwYXJ0LXRpbWUgZG9jdG9yYWwgcmVzZWFyY2hlciIpIH4gMSwNCiAgICAgICAgICAgICBncmVwbCgicGhkfGp1bmlvcnxwcm9tb3ZlbmR1cyIsIHRvbG93ZXIoRnVuY3RpZS4yNCkpIH4gMSwNCiAgICAgICAgICAgICAuZGVmYXVsdCA9IE5BDQogICAgICAgICAgICkNCiAgICAgICAgICkNCg0KDQp0YWJsZShkZl9lZ28kZnVuY3RpZV9sZXZlbCwgZGZfZWdvJEZ1bmN0aWUuMjQsIHVzZU5BPSJhbHdheXMiKQ0KdGFibGUoZGZfZWdvJGZ1bmN0aWVfbGV2ZWwsIHVzZU5BID0gImFsd2F5cyIpDQoNCmZzYXZlKGRmX2VnbykNCg0KYGBgDQoNCiMgRmlyc3QgYW5hbHlzZXMgKHVuZGlyZWN0ZWQgbmV0d29yaykNCg0KIyMgSG9tb3BoaWx5Pw0KDQpgYGB7cn0NCiNTdGVwIDE6IGRlZmluZSBkYXRhDQoNCndhdmUxIDwtIHNjaG9sYXJzX25ldCRuZXRzWzEsLF0NCndhdmUyIDwtIHNjaG9sYXJzX25ldCRuZXRzWzIsLF0NCg0KIyNzb21lIGNoZWNrcw0KZGltKHdhdmUxKQ0KZGltKHdhdmUyKQ0KDQojc2hvdWxkIGJlIDANCnN1bShpcy5uYSh3YXZlMSkpDQoNCiNzZXQgZGlhZ29uYWwgdG8gMA0Kc3VtKGRpYWcod2F2ZTIpPT0wKQ0KDQpkaWFnKHdhdmUxKSA8LSAwDQpkaWFnKHdhdmUyKSA8LSAwDQoNCiNvbmx5IDFzIGFuZCAwcw0Kc3VtKHdhdmUxPjEpDQoNCiNhdCBsZWFzdCBzb21lIDFzDQpzdW0od2F2ZTE+MCkNCg0KDQojbWFrZSBhcnJheQ0KbmV0cyA8LSBhcnJheShkYXRhID0gYyh3YXZlMSwgd2F2ZTIpLCBkaW0gPSBjKGRpbSh3YXZlMSksIDIpKQ0KDQojIGRlcGVuZGVudA0KbmV0IDwtIHNpZW5hRGVwZW5kZW50KG5ldHMpDQoNCiNpbmRlcGVuZGVudA0KDQpmdW5jdGllIDwtIGNvQ292YXIoZGZfZWdvJGZ1bmN0aWVfbGV2ZWwpDQoNCm15ZGF0YSA8LSBzaWVuYURhdGFDcmVhdGUobmV0LCBmdW5jdGllKQ0KDQpgYGANCg0KYGBge3J9DQojU3RlcCAyOiBlZmZlY3RzDQpteWVmZiA8LSBnZXRFZmZlY3RzKG15ZGF0YSkNCm15ZWZmDQoNCmBgYA0KDQpgYGB7cn0NCiNTdGVwIDM6IGluaXRpYWwgZGVzY3JpcHRpb24NCg0KcHJpbnQwMVJlcG9ydChteWRhdGEsIG1vZGVsbmFtZSA9ICIuL3Jlc3VsdHMvc2Vjb25kdGVzdF9zY2hvbGFycyIpDQoNCmBgYA0KDQpgYGB7cn0NCiNzdGVwIDQ6IHNwZWNpZnkgbW9kZWwNCm15ZWZmIDwtIGdldEVmZmVjdHMobXlkYXRhKQ0KbXllZmYgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIGd3ZXNwLCBvdXRBY3QpDQpteWVmZiA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZiwgc2ltWCwgaW50ZXJhY3Rpb24xID0gImZ1bmN0aWUiKQ0KDQpteWVmZg0KYGBgDQoNCmBgYHtyLCBldmFsPUZBTFNFLCBlY2hvPVRSVUV9DQojRXN0aW1hdGUNCm15QWxnb3JpdGhtIDwtIHNpZW5hQWxnb3JpdGhtQ3JlYXRlKHByb2puYW1lID0gInNjaG9sYXJzIikNCkVzdE0xIDwtIHNpZW5hMDcobXlBbGdvcml0aG0sIGRhdGEgPSBteWRhdGEsIGVmZmVjdHMgPSBteWVmZiwgcmV0dXJuRGVwcyA9IFRSVUUpDQoNCkVzdE0xDQoNCmBgYA0K</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("RSiena example.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

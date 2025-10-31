@@ -28,12 +28,11 @@ klippy::klippy(position = c('top', 'right'))
 library(igraph)
 ```
 
-
 Last compiled on `r format(Sys.time(), '%B, %Y')`
 
 <br>
 
-#In class
+# In class
 
 ```{r}
 #install.packages("formatR")
@@ -87,7 +86,6 @@ reciprocity
 
 ```
 
-
 ```{r}
 #?igraph
 
@@ -99,38 +97,32 @@ triad_census(netG_d)
 plot(netG_d)
 ```
 
-
 # Homework
 
 # Introduction
-The principle of homophily refers to the larger likelihood of observing a positive relationship between two people who are similar. In the world of academic research, this principle also applies. For example, we see that researchers with greater physical proximity or the same gender are more likely to collaborate (Horta et al., 2022). Given the different positions researchers can hold in universities, this raises the question to what extent this same goes for researchers of similar positions.There are several reasons why this might occur. Researcher of similar posiitons might prefer to work with other researchers with a similar level (selection), or working together with a reserahcer of a higher level might influence a researcher to promote (influence). 
 
-If this homophily structure exists, this raises the question what the consequences are of this structure of collaberations on papers. Other researchers might prefer to cite papers by researchers of a higher position. Furthermore, working with researchers of a higher position might influence these researchers in such a way that their future papers will be cited more often. 
+The principle of homophily refers to the larger likelihood of observing a positive relationship between two people who are similar. In the world of academic research, this principle also applies. For example, we see that researchers with greater physical proximity or the same gender are more likely to collaborate (Horta et al., 2022). Given the different positions researchers can hold in universities, this raises the question to what extent this same goes for researchers of similar positions.There are several reasons why this might occur. Researcher of similar posiitons might prefer to work with other researchers with a similar level (selection), or working together with a reserahcer of a higher level might influence a researcher to promote (influence).
 
+If this homophily structure exists, this raises the question what the consequences are of this structure of collaberations on papers. Other researchers might prefer to cite papers by researchers of a higher position. Furthermore, working with researchers of a higher position might influence these researchers in such a way that their future papers will be cited more often.
 
 #RQs
 
-(Descriptive) RQ1: To what degree is there position homophily in publication collaberations between social science researchers in the Netherlands? 
+(Descriptive) RQ1: To what degree is there position homophily in publication collaberations between social science researchers in the Netherlands?
 
 (Explanatory) RQ2: How does the position composition of a researcher's egonet (paper collaberations / department influence a researcher's citations?
 
 (Explanatory) RQ3: How does the position composition of a paper influence the number of citations of the paper?
 
+# Data needed
 
+-   Node characteristics: position, citations, affiliation.
 
-#Data needed
-
-- Node characteristics: position, citations, affiliation.
-
-- Relational attributes: who collaberated with whom, paper citations.
+-   Relational attributes: who collaberated with whom, paper citations.
 
 # References
-  
-  Horta, H., Feng, S. & Santos, J.M. Homophily in higher education research: a perspective based on co-authorships. Scientometrics 127, 523–543 (2022). https://doi.org/10.1007/s11192-021-04227-z
+
+Horta, H., Feng, S. & Santos, J.M. Homophily in higher education research: a perspective based on co-authorships. Scientometrics 127, 523–543 (2022). <https://doi.org/10.1007/s11192-021-04227-z>
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-
-

@@ -39,7 +39,6 @@ plot(g, layout = l)
 
 ```
 
-
 ```{r}
 ## making network collaberations data, from JT's tutorial
 
@@ -226,7 +225,7 @@ plot(test_w2,
 
 ```
 
-#ego characterics
+# Ego characteristics
 
 ```{r, eval=FALSE, echo=TRUE}
 # Scraping the # of citations of all papers published during per wave 
@@ -328,10 +327,3 @@ df_long <- df|>
 ggplot(df_long, aes(x = citations, color = wave)) + geom_density()
 
 ```
-
-
-# Homophily
-
-
-
-

@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-#In class
+# In class
 
 ```{r}
 
@@ -66,9 +66,7 @@ jt_json[["results"]][[1]]$affiliations[[1]]$institution$display_name
 
 ```
 
-
-
-#Homework
+# Homework
 
 ```{r, eval=FALSE, echo=TRUE}
 rm(list = ls())
@@ -137,7 +135,6 @@ df <- left_join(df, df_citations_total, by = "Naam")
 
 ```
 
-
 ```{r, eval=FALSE, echo=FALSE}
 fsave(df)
 
@@ -146,7 +143,6 @@ fsave(df)
 ```{r, eval=TRUE, echo=FALSE}
 df <- fload("./data/processed/20250926df.rda")
 ```
-
 
 ```{r}
 str(df)
@@ -158,10 +154,8 @@ summary(df)
 
 ```
 
-
-
 # (Updated) RQs
-(Descriptive) RQ1: To what degree is there position homophily in publication collaberations between social science researchers in the Netherlands? 
+
+(Descriptive) RQ1: To what degree is there position homophily in publication collaberations between social science researchers in the Netherlands?
 
 (Explanatory) RQ2: How does the position composition of a researcher's egonet (paper collaberations / department) influence a researcher's citations?
-
